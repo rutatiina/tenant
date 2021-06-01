@@ -1,6 +1,6 @@
 {
-    "name": "rutatiina/estimate",
-    "description": "Laravel Package to manage estimates",
+    "name": "rutatiina/tenant",
+    "description": "Laravel Package to manage tenants",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rutatiina\\Estimate\\": "src/"
+            "Rutatiina\\Tenant\\": "src/"
         }
     }
 }

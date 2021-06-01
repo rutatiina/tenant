@@ -1,3 +1,3 @@
-# Estimate (Laravel Package)
+# Tenant (Laravel Package)
 
-## Laravel Package to manage estimate
+## Laravel Package to manage tenants
