@@ -17,5 +17,12 @@
         "psr-4": {
             "Rutatiina\\Tenant\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rutatiina\\Tenant\\TenantServiceProvider"
+            ]
+        }
     }
 }
