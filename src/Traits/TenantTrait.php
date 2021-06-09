@@ -15,7 +15,7 @@ use Rutatiina\CreditNote\Models\Setting as CreditNoteSetting;
 use Rutatiina\DebitNote\Models\Setting as DebitNoteSetting;
 use Rutatiina\Estimate\Models\Setting as EstimateSetting;
 use Rutatiina\Expense\Models\Setting as ExpenseSetting;
-use Rutatiina\Expense\Models\ExpenseRecurringSetting;
+use Rutatiina\Expense\Models\RecurringExpenseSetting;
 use Rutatiina\GoodsDelivered\Models\Setting as GoodsDeliveredSetting;
 use Rutatiina\GoodsIssued\Models\Setting as GoodsIssuedSetting;
 use Rutatiina\GoodsReceived\Models\Setting as GoodsReceivedSetting;
@@ -1786,7 +1786,7 @@ trait TenantTrait
             'credit_financial_account_code' => 3,
         ]);
 
-        ExpenseRecurringSetting::create([
+        RecurringExpenseSetting::create([
             'tenant_id' => $tenant_id,
             'document_name' => 'Recurring Expense',
             'document_type' => null,
