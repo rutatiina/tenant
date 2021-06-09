@@ -1855,8 +1855,7 @@ trait TenantTrait
             'tenant_id' => $tenant_id,
             'document_name' => 'Purchase Order',
             'document_type' => 'order',
-            'debit_financial_account_code' => 56,
-            'credit_financial_account_code' => 0,
+            'financial_account_code' => 56,
         ]);
 
         ReceiptSetting::create([
