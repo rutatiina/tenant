@@ -9,8 +9,8 @@ use Rutatiina\Tax\Models\Tax;
 use Rutatiina\Tenant\Models\Tenant;
 
 use Rutatiina\CashSale\Models\CashSaleSetting;
-use Rutatiina\Bill\Models\Setting as BillSetting;
-use Rutatiina\Bill\Models\BillRecurringSetting;
+use Rutatiina\Bill\Models\BillSetting;
+use Rutatiina\Bill\Models\RecurringBillSetting;
 use Rutatiina\CreditNote\Models\Setting as CreditNoteSetting;
 use Rutatiina\DebitNote\Models\Setting as DebitNoteSetting;
 use Rutatiina\Estimate\Models\Setting as EstimateSetting;
@@ -1754,7 +1754,7 @@ trait TenantTrait
             'credit_financial_account_code' => 4,
         ]);
 
-        BillRecurringSetting::create([
+        RecurringBillSetting::create([
             'tenant_id' => $tenant_id,
             'document_name' => 'Recurring Bill',
             'document_type' => null,
