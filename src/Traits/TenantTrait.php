@@ -20,8 +20,8 @@ use Rutatiina\GoodsDelivered\Models\Setting as GoodsDeliveredSetting;
 use Rutatiina\GoodsIssued\Models\Setting as GoodsIssuedSetting;
 use Rutatiina\GoodsReceived\Models\Setting as GoodsReceivedSetting;
 use Rutatiina\GoodsReturned\Models\Setting as GoodsReturnedSetting;
-use Rutatiina\Invoice\Models\Setting as InvoiceSetting;
-use Rutatiina\Invoice\Models\InvoiceRecurringSetting;
+use Rutatiina\Invoice\Models\InvoiceSetting;
+use Rutatiina\Invoice\Models\RecurringInvoiceSetting;
 use Rutatiina\PaymentsMade\Models\Setting as PaymentsMadeSetting;
 use Rutatiina\PurchaseOrder\Models\Setting as PurchaseOrderSetting;
 use Rutatiina\Receipt\Models\Setting as ReceiptSetting;
@@ -1835,7 +1835,7 @@ trait TenantTrait
             'credit_financial_account_code' => 2,
         ]);
 
-        InvoiceRecurringSetting::create([
+        RecurringInvoiceSetting::create([
             'tenant_id' => $tenant_id,
             'document_name' => 'Recurring Invoice',
             'document_type' => null,
