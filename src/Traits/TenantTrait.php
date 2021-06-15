@@ -3,7 +3,6 @@
 namespace Rutatiina\Tenant\Traits;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Rutatiina\FinancialAccounting\Models\Account;
 use Rutatiina\Tax\Models\Tax;
 use Rutatiina\Tenant\Models\Tenant;
@@ -22,9 +21,9 @@ use Rutatiina\GoodsReceived\Models\Setting as GoodsReceivedSetting;
 use Rutatiina\GoodsReturned\Models\Setting as GoodsReturnedSetting;
 use Rutatiina\Invoice\Models\InvoiceSetting;
 use Rutatiina\Invoice\Models\RecurringInvoiceSetting;
-use Rutatiina\PaymentsMade\Models\Setting as PaymentsMadeSetting;
+use Rutatiina\PaymentMade\Models\PaymentMadeSetting;
 use Rutatiina\PurchaseOrder\Models\Setting as PurchaseOrderSetting;
-use Rutatiina\Receipt\Models\Setting as ReceiptSetting;
+use Rutatiina\PaymentReceived\Models\PaymentReceivedSetting;
 use Rutatiina\RetainerInvoice\Models\Setting as RetainerInvoiceSetting;
 use Rutatiina\SalesOrder\Models\Setting as SalesOrderSetting;
 
@@ -1843,7 +1842,7 @@ trait TenantTrait
             'credit_financial_account_code' => 2,
         ]);
 
-        PaymentsMadeSetting::create([
+        PaymentMadeSetting::create([
             'tenant_id' => $tenant_id,
             'document_name' => 'Payment Voucher',
             'document_type' => 'payment',
@@ -1858,7 +1857,7 @@ trait TenantTrait
             'financial_account_code' => 56,
         ]);
 
-        ReceiptSetting::create([
+        PaymentReceivedSetting::create([
             'tenant_id' => $tenant_id,
             'document_name' => 'Receipt',
             'document_type' => 'receipt',
