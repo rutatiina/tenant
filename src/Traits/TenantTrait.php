@@ -1714,21 +1714,27 @@ trait TenantTrait
 
         //create the settings per transaction to each tenant
 
-        EstimateSetting::create([
-            'tenant_id' => $tenant_id,
-            'document_name' => 'Quotation',
-            'document_type' => null,
-            'financial_account_code' => 28,
-        ]);
+        if(class_exists('EstimateSetting'))
+        {
+            EstimateSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Quotation',
+                'document_type' => null,
+                'financial_account_code' => 28,
+            ]);
+        }
 
-        RetainerInvoiceSetting::create([
-            'tenant_id' => $tenant_id,
-            'document_name' => 'Invoice',
-            'document_type' => 'invoice',
-            'number_prefix' => 'RET-',
-            'debit_financial_account_code' => 1, //receviables
-            'credit_financial_account_code' => 70, //Deferred Revenue
-        ]);
+        if(class_exists('RetainerInvoiceSetting'))
+        {
+            RetainerInvoiceSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Invoice',
+                'document_type' => 'invoice',
+                'number_prefix' => 'RET-',
+                'debit_financial_account_code' => 1, //receviables
+                'credit_financial_account_code' => 70, //Deferred Revenue
+            ]);
+        }
 
         SalesOrderSetting::create([
             'tenant_id' => $tenant_id,
