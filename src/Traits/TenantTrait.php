@@ -10,22 +10,22 @@ use Rutatiina\Tenant\Models\Tenant;
 use Rutatiina\CashSale\Models\CashSaleSetting;
 use Rutatiina\Bill\Models\BillSetting;
 use Rutatiina\Bill\Models\RecurringBillSetting;
-use Rutatiina\CreditNote\Models\Setting as CreditNoteSetting;
-use Rutatiina\DebitNote\Models\Setting as DebitNoteSetting;
-use Rutatiina\Estimate\Models\Setting as EstimateSetting;
-use Rutatiina\Expense\Models\Setting as ExpenseSetting;
+use Rutatiina\CreditNote\Models\CreditNoteSetting;
+use Rutatiina\DebitNote\Models\DebitNoteSetting;
+use Rutatiina\Estimate\Models\EstimateSetting;
+use Rutatiina\Expense\Models\ExpenseSetting;
 use Rutatiina\Expense\Models\RecurringExpenseSetting;
-use Rutatiina\GoodsDelivered\Models\Setting as GoodsDeliveredSetting;
-use Rutatiina\GoodsIssued\Models\Setting as GoodsIssuedSetting;
-use Rutatiina\GoodsReceived\Models\Setting as GoodsReceivedSetting;
-use Rutatiina\GoodsReturned\Models\Setting as GoodsReturnedSetting;
+use Rutatiina\GoodsDelivered\Models\GoodsDeliveredSetting;
+use Rutatiina\GoodsIssued\Models\GoodsIssuedSetting;
+use Rutatiina\GoodsReceived\Models\GoodsReceivedSetting;
+use Rutatiina\GoodsReturned\Models\GoodsReturnedSetting;
 use Rutatiina\Invoice\Models\InvoiceSetting;
 use Rutatiina\Invoice\Models\RecurringInvoiceSetting;
 use Rutatiina\PaymentMade\Models\PaymentMadeSetting;
-use Rutatiina\PurchaseOrder\Models\Setting as PurchaseOrderSetting;
+use Rutatiina\PurchaseOrder\Models\PurchaseOrderSetting;
 use Rutatiina\PaymentReceived\Models\PaymentReceivedSetting;
-use Rutatiina\RetainerInvoice\Models\Setting as RetainerInvoiceSetting;
-use Rutatiina\SalesOrder\Models\Setting as SalesOrderSetting;
+use Rutatiina\RetainerInvoice\Models\RetainerInvoiceSetting;
+use Rutatiina\SalesOrder\Models\SalesOrderSetting;
 
 trait TenantTrait
 {
@@ -102,7 +102,7 @@ trait TenantTrait
 
         //create the settings per transaction to each tenant
 
-        if(class_exists('Rutatiina\Estimate\Models\Setting'))
+        if(class_exists('Rutatiina\Estimate\Models\EstimateSetting'))
         {
             EstimateSetting::create([
                 'tenant_id' => $tenant_id,
@@ -112,7 +112,7 @@ trait TenantTrait
             ]);
         }
 
-        if(class_exists('Rutatiina\RetainerInvoice\Models\Setting'))
+        if(class_exists('Rutatiina\RetainerInvoice\Models\RetainerInvoiceSetting'))
         {
             RetainerInvoiceSetting::create([
                 'tenant_id' => $tenant_id,
@@ -124,7 +124,7 @@ trait TenantTrait
             ]);
         }
 
-        if(class_exists('Rutatiina\SalesOrder\Models\Setting'))
+        if(class_exists('Rutatiina\SalesOrder\Models\SalesOrderSetting'))
         {
             SalesOrderSetting::create([
                 'tenant_id' => $tenant_id,
@@ -167,7 +167,7 @@ trait TenantTrait
             ]);
         }
 
-        if(class_exists('Rutatiina\CreditNote\Models\Setting'))
+        if(class_exists('Rutatiina\CreditNote\Models\CreditNoteSetting'))
         {
             CreditNoteSetting::create([
                 'tenant_id' => $tenant_id,
@@ -178,7 +178,7 @@ trait TenantTrait
             ]);
         }
 
-        if(class_exists('Rutatiina\DebitNote\Models\Setting'))
+        if(class_exists('Rutatiina\DebitNote\Models\DebitNoteSetting'))
         {
             DebitNoteSetting::create([
                 'tenant_id' => $tenant_id,
@@ -189,7 +189,7 @@ trait TenantTrait
             ]);
         }
 
-        if(class_exists('Rutatiina\Expense\Models\Setting'))
+        if(class_exists('Rutatiina\Expense\Models\ExpenseSetting'))
         {
             ExpenseSetting::create([
                 'tenant_id' => $tenant_id,
@@ -211,7 +211,7 @@ trait TenantTrait
             ]);
         }
 
-        if (class_exists('Rutatiina\GoodsDelivered\Models\Setting'))
+        if (class_exists('Rutatiina\GoodsDelivered\Models\GoodsDeliveredSetting'))
         {
             GoodsDeliveredSetting::create([
                 'tenant_id' => $tenant_id,
@@ -222,7 +222,7 @@ trait TenantTrait
             ]);
         }
 
-        if (class_exists('Rutatiina\GoodsIssued\Models\Setting'))
+        if (class_exists('Rutatiina\GoodsIssued\Models\GoodsIssuedSetting'))
         {
             GoodsIssuedSetting::create([
                 'tenant_id' => $tenant_id,
@@ -233,7 +233,7 @@ trait TenantTrait
             ]);
         }
 
-        if (class_exists('Rutatiina\GoodsReceived\Models\Setting'))
+        if (class_exists('Rutatiina\GoodsReceived\Models\GoodsReceivedSetting'))
         {
             GoodsReceivedSetting::create([
                 'tenant_id' => $tenant_id,
@@ -244,7 +244,7 @@ trait TenantTrait
             ]);
         }
 
-        if (class_exists('Rutatiina\GoodsReturned\Models\Setting'))
+        if (class_exists('Rutatiina\GoodsReturned\Models\GoodsReturnedSetting'))
         {
             GoodsReturnedSetting::create([
                 'tenant_id' => $tenant_id,
@@ -289,7 +289,7 @@ trait TenantTrait
             ]);
         }
 
-        if (class_exists('Rutatiina\PurchaseOrder\Models\Setting'))
+        if (class_exists('Rutatiina\PurchaseOrder\Models\PurchaseOrderSetting'))
         {
             PurchaseOrderSetting::create([
                 'tenant_id' => $tenant_id,
