@@ -41,8 +41,282 @@ trait TenantTrait
     private function tenantSetup($tenant_id)
     {
         //create the tenants accounts
+        $this->setupFinancialAccounts($tenant_id);
 
+        //create tenants taxes
+        Tax::insert(
+            [
+                    [
+                        'tenant_id' => $tenant_id,
+                        'created_by' => NULL,
+                        'country' => NULL,
+                        'name' => 'VAT 18%',
+                        'code' => 'vat',
+                        'display_name' => 'VAT 18%',
+                        'value' => '18%',
+                        'based_on' => 'item',
+                        'inclusive' => 1,
+                        'on_sale' => 0,
+                        'on_sale_effect' => 'credit',
+                        'on_sale_financial_account_code' => 303,
+                        'on_bill' => 0,
+                        'on_bill_effect' => 'debit',
+                        'on_bill_financial_account_code' => 302,
+                    ],
+                    [
+                        'tenant_id' => $tenant_id,
+                        'created_by' => NULL,
+                        'country' => NULL,
+                        'name' => 'Withholding Tax',
+                        'code' => 'withholding-tax',
+                        'display_name' => 'WHT (15%)',
+                        'value' => '15%',
+                        'based_on' => 'total',
+                        'inclusive' => 0,
+                        'on_sale' => 0,
+                        'on_sale_effect' => 'credit',
+                        'on_sale_financial_account_code' => 306,
+                        'on_bill' => 0,
+                        'on_bill_effect' => 'debit',
+                        'on_bill_financial_account_code' => 305,
+                    ],
+                    [
+                        'tenant_id' => $tenant_id,
+                        'created_by' => NULL,
+                        'country' => NULL,
+                        'name' => 'Excise Duty 15%',
+                        'code' => 'excise-duty',
+                        'display_name' => 'Excise Duty 15%',
+                        'value' => '15%',
+                        'based_on' => 'total',
+                        'inclusive' => 0,
+                        'on_sale' => 0,
+                        'on_sale_effect' => 'credit',
+                        'on_sale_financial_account_code' => 381,
+                        'on_bill' => 0,
+                        'on_bill_effect' => 'debit',
+                        'on_bill_financial_account_code' => 379,
+                    ]
+            ]
+        );
 
+        //create the settings per transaction to each tenant
+
+        if(class_exists('Rutatiina\Estimate\Models\Setting'))
+        {
+            EstimateSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Quotation',
+                'document_type' => null,
+                'financial_account_code' => 28,
+            ]);
+        }
+
+        if(class_exists('Rutatiina\RetainerInvoice\Models\Setting'))
+        {
+            RetainerInvoiceSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Invoice',
+                'document_type' => 'invoice',
+                'number_prefix' => 'RET-',
+                'debit_financial_account_code' => 1, //receviables
+                'credit_financial_account_code' => 70, //Deferred Revenue
+            ]);
+        }
+
+        if(class_exists('Rutatiina\SalesOrder\Models\Setting'))
+        {
+            SalesOrderSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Sales Order',
+                'document_type' => 'order',
+                'financial_account_code' => 12,
+            ]);
+        }
+
+        if(class_exists('Rutatiina\CashSale\Models\CashSaleSetting'))
+        {
+            CashSaleSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Invoice/Receipt',
+                'document_type' => 'receipt',
+                'debit_financial_account_code' => 3, //cash
+                'credit_financial_account_code' => 2, //sales-revenue
+            ]);
+        }
+
+        if(class_exists('Rutatiina\Bill\Models\BillSetting'))
+        {
+            BillSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Bill',
+                'document_type' => 'bill',
+                'debit_financial_account_code' => 5,
+                'credit_financial_account_code' => 4,
+            ]);
+        }
+
+        if(class_exists('Rutatiina\Bill\Models\RecurringBillSetting'))
+        {
+            RecurringBillSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Recurring Bill',
+                'document_type' => null,
+                'debit_financial_account_code' => 5,
+                'credit_financial_account_code' => 4,
+            ]);
+        }
+
+        if(class_exists('Rutatiina\CreditNote\Models\Setting'))
+        {
+            CreditNoteSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Credit Note',
+                'document_type' => null,
+                'debit_financial_account_code' => 69, //2,
+                'credit_financial_account_code' => 1, //Receviables
+            ]);
+        }
+
+        if(class_exists('Rutatiina\DebitNote\Models\Setting'))
+        {
+            DebitNoteSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Debit Note',
+                'document_type' => null,
+                'debit_financial_account_code' => 4,
+                'credit_financial_account_code' => 68, //Purchase Returns
+            ]);
+        }
+
+        if(class_exists('Rutatiina\Expense\Models\Setting'))
+        {
+            ExpenseSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Payment Voucher',
+                'document_type' => 'payment',
+                'debit_financial_account_code' => 5,
+                'credit_financial_account_code' => 3,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\Expense\Models\RecurringExpenseSetting'))
+        {
+            RecurringExpenseSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Recurring Expense',
+                'document_type' => null,
+                'debit_financial_account_code' => 5,
+                'credit_financial_account_code' => 3,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\GoodsDelivered\Models\Setting'))
+        {
+            GoodsDeliveredSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Goods Delivered Note',
+                'document_type' => 'inventory',
+                'debit_financial_account_code' => 54,
+                'credit_financial_account_code' => 6,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\GoodsIssued\Models\Setting'))
+        {
+            GoodsIssuedSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Goods Issued Note',
+                'document_type' => 'inventory',
+                'debit_financial_account_code' => 66,
+                'credit_financial_account_code' => 6,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\GoodsReceived\Models\Setting'))
+        {
+            GoodsReceivedSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Goods Received Note',
+                'document_type' => 'inventory',
+                'debit_financial_account_code' => 6,
+                'credit_financial_account_code' => 0,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\GoodsReturned\Models\Setting'))
+        {
+            GoodsReturnedSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Goods Returned Note',
+                'document_type' => 'inventory',
+                'debit_financial_account_code' => 6,
+                'credit_financial_account_code' => 66,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\Invoice\Models\InvoiceSetting'))
+        {
+            InvoiceSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Invoice',
+                'document_type' => 'invoice',
+                'number_prefix' => 'INV-',
+                'debit_financial_account_code' => 1,
+                'credit_financial_account_code' => 2,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\Invoice\Models\RecurringInvoiceSetting'))
+        {
+            RecurringInvoiceSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Recurring Invoice',
+                'document_type' => null,
+                'debit_financial_account_code' => 1,
+                'credit_financial_account_code' => 2,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\PaymentMade\Models\PaymentMadeSetting'))
+        {
+            PaymentMadeSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Payment Voucher',
+                'document_type' => 'payment',
+                'debit_financial_account_code' => 4,
+                'credit_financial_account_code' => 3,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\PurchaseOrder\Models\Setting'))
+        {
+            PurchaseOrderSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Purchase Order',
+                'document_type' => 'order',
+                'financial_account_code' => 56,
+            ]);
+        }
+
+        if (class_exists('Rutatiina\PaymentReceived\Models\PaymentReceivedSetting'))
+        {
+            PaymentReceivedSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Receipt',
+                'document_type' => 'receipt',
+                'debit_financial_account_code' => 3,
+                'credit_financial_account_code' => 1,
+            ]);
+        }
+
+    }
+
+    private function setupFinancialAccounts($tenant_id)
+    {
+        //create the tenants accounts
+
+        //<<Financial account
         Account::create([
                     'code' => 1,
                     'tenant_id' => $tenant_id,
@@ -1652,275 +1926,7 @@ trait TenantTrait
                     'description' => NULL,
                     'payment' => 0,
                 ]);
-
-
-
-        //create tenants taxes
-        Tax::insert(
-            [
-                    [
-                        'tenant_id' => $tenant_id,
-                        'created_by' => NULL,
-                        'country' => NULL,
-                        'name' => 'VAT 18%',
-                        'code' => 'vat',
-                        'display_name' => 'VAT 18%',
-                        'value' => '18%',
-                        'based_on' => 'item',
-                        'inclusive' => 1,
-                        'on_sale' => 0,
-                        'on_sale_effect' => 'credit',
-                        'on_sale_financial_account_code' => 303,
-                        'on_bill' => 0,
-                        'on_bill_effect' => 'debit',
-                        'on_bill_financial_account_code' => 302,
-                    ],
-                    [
-                        'tenant_id' => $tenant_id,
-                        'created_by' => NULL,
-                        'country' => NULL,
-                        'name' => 'Withholding Tax',
-                        'code' => 'withholding-tax',
-                        'display_name' => 'WHT (15%)',
-                        'value' => '15%',
-                        'based_on' => 'total',
-                        'inclusive' => 0,
-                        'on_sale' => 0,
-                        'on_sale_effect' => 'credit',
-                        'on_sale_financial_account_code' => 306,
-                        'on_bill' => 0,
-                        'on_bill_effect' => 'debit',
-                        'on_bill_financial_account_code' => 305,
-                    ],
-                    [
-                        'tenant_id' => $tenant_id,
-                        'created_by' => NULL,
-                        'country' => NULL,
-                        'name' => 'Excise Duty 15%',
-                        'code' => 'excise-duty',
-                        'display_name' => 'Excise Duty 15%',
-                        'value' => '15%',
-                        'based_on' => 'total',
-                        'inclusive' => 0,
-                        'on_sale' => 0,
-                        'on_sale_effect' => 'credit',
-                        'on_sale_financial_account_code' => 381,
-                        'on_bill' => 0,
-                        'on_bill_effect' => 'debit',
-                        'on_bill_financial_account_code' => 379,
-                    ]
-            ]
-        );
-
-        //create the settings per transaction to each tenant
-
-        if(class_exists('EstimateSetting'))
-        {
-            EstimateSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Quotation',
-                'document_type' => null,
-                'financial_account_code' => 28,
-            ]);
-        }
-
-        if(class_exists('RetainerInvoiceSetting'))
-        {
-            RetainerInvoiceSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Invoice',
-                'document_type' => 'invoice',
-                'number_prefix' => 'RET-',
-                'debit_financial_account_code' => 1, //receviables
-                'credit_financial_account_code' => 70, //Deferred Revenue
-            ]);
-        }
-
-        if(class_exists('SalesOrderSetting'))
-        {
-            SalesOrderSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Sales Order',
-                'document_type' => 'order',
-                'financial_account_code' => 12,
-            ]);
-        }
-
-        if(class_exists('CashSaleSetting'))
-        {
-            CashSaleSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Invoice/Receipt',
-                'document_type' => 'receipt',
-                'debit_financial_account_code' => 3, //cash
-                'credit_financial_account_code' => 2, //sales-revenue
-            ]);
-        }
-
-        if(class_exists('BillSetting'))
-        {
-            BillSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Bill',
-                'document_type' => 'bill',
-                'debit_financial_account_code' => 5,
-                'credit_financial_account_code' => 4,
-            ]);
-        }
-
-        if(class_exists('RecurringBillSetting'))
-        {
-            RecurringBillSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Recurring Bill',
-                'document_type' => null,
-                'debit_financial_account_code' => 5,
-                'credit_financial_account_code' => 4,
-            ]);
-        }
-
-        if(class_exists('CreditNoteSetting'))
-        {
-            CreditNoteSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Credit Note',
-                'document_type' => null,
-                'debit_financial_account_code' => 69, //2,
-                'credit_financial_account_code' => 1, //Receviables
-            ]);
-        }
-
-        if(class_exists('DebitNoteSetting'))
-        {
-            DebitNoteSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Debit Note',
-                'document_type' => null,
-                'debit_financial_account_code' => 4,
-                'credit_financial_account_code' => 68, //Purchase Returns
-            ]);
-        }
-
-        if(class_exists('ExpenseSetting'))
-        {
-            ExpenseSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Payment Voucher',
-                'document_type' => 'payment',
-                'debit_financial_account_code' => 5,
-                'credit_financial_account_code' => 3,
-            ]);
-        }
-
-        if (class_exists('RecurringExpenseSetting'))
-        {
-            RecurringExpenseSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Recurring Expense',
-                'document_type' => null,
-                'debit_financial_account_code' => 5,
-                'credit_financial_account_code' => 3,
-            ]);
-        }
-
-        if (class_exists('GoodsDeliveredSetting'))
-        {
-            GoodsDeliveredSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Goods Delivered Note',
-                'document_type' => 'inventory',
-                'debit_financial_account_code' => 54,
-                'credit_financial_account_code' => 6,
-            ]);
-        }
-
-        if (class_exists('GoodsIssuedSetting'))
-        {
-            GoodsIssuedSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Goods Issued Note',
-                'document_type' => 'inventory',
-                'debit_financial_account_code' => 66,
-                'credit_financial_account_code' => 6,
-            ]);
-        }
-
-        if (class_exists('GoodsReceivedSetting'))
-        {
-            GoodsReceivedSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Goods Received Note',
-                'document_type' => 'inventory',
-                'debit_financial_account_code' => 6,
-                'credit_financial_account_code' => 0,
-            ]);
-        }
-
-        if (class_exists('GoodsReturnedSetting'))
-        {
-            GoodsReturnedSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Goods Returned Note',
-                'document_type' => 'inventory',
-                'debit_financial_account_code' => 6,
-                'credit_financial_account_code' => 66,
-            ]);
-        }
-
-        if (class_exists('InvoiceSetting'))
-        {
-            InvoiceSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Invoice',
-                'document_type' => 'invoice',
-                'number_prefix' => 'INV-',
-                'debit_financial_account_code' => 1,
-                'credit_financial_account_code' => 2,
-            ]);
-        }
-
-        if (class_exists('RecurringInvoiceSetting'))
-        {
-            RecurringInvoiceSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Recurring Invoice',
-                'document_type' => null,
-                'debit_financial_account_code' => 1,
-                'credit_financial_account_code' => 2,
-            ]);
-        }
-
-        if (class_exists('PaymentMadeSetting'))
-        {
-            PaymentMadeSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Payment Voucher',
-                'document_type' => 'payment',
-                'debit_financial_account_code' => 4,
-                'credit_financial_account_code' => 3,
-            ]);
-        }
-
-        if (class_exists('PurchaseOrderSetting'))
-        {
-            PurchaseOrderSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Purchase Order',
-                'document_type' => 'order',
-                'financial_account_code' => 56,
-            ]);
-        }
-
-        if (class_exists('PaymentReceivedSetting'))
-        {
-            PaymentReceivedSetting::create([
-                'tenant_id' => $tenant_id,
-                'document_name' => 'Receipt',
-                'document_type' => 'receipt',
-                'debit_financial_account_code' => 3,
-                'credit_financial_account_code' => 1,
-            ]);
-        }
+        //<<Financial account
 
     }
 }
