@@ -311,6 +311,70 @@ trait TenantTrait
 
     }
 
+    private function setupFinancialAccountTypes($tenant_id)
+    {
+        $types = [
+            //balance sheet
+            'asset' => [
+                'Cash And Financial Assets' => [
+                    'Cash and Cash Equivalents',
+                    'Financial Assets (Investments)',
+                    'Restricted Cash and Financial Assets',
+                    'Additional Financial Assets and Investments',
+                ],
+                'Receivables And Contracts' => [
+                    'Accounts Receivable', //Accounts, Notes And Loans Receivable
+                    'Contracts',
+                    'Nontrade And Other Receivables',
+                ],
+                'Inventory' => [
+                    'Merchandise',
+                    'Raw Material, Parts And Supplies',
+                    'Work In Process',
+                    'Finished Goods',
+                ],
+                'Accruals And Additional Assets' => [
+                    'xxxx',
+                    'xxxx'
+                ],
+                'Property, Plant And Equipment' => [
+                    'xxxx',
+                    'xxxx'
+                ],
+                'Intangible Assets (Excluding Goodwill)' => [
+                    'xxxx',
+                    'xxxx'
+                ],
+            ],
+            'liability' => [
+                'xxxx' => [
+                    'xxxx',
+                    'xxxx'
+                ],
+            ],
+            'equity' => [
+                'xxxx' => [
+                    'xxxx',
+                    'xxxx'
+                ],
+            ],
+
+            //income statement
+            'revenue' => [
+                'xxxx' => [
+                    'xxxx',
+                    'xxxx'
+                ],
+            ],
+            'expenses' => [
+                'xxxx' => [
+                    'xxxx',
+                    'xxxx'
+                ],
+            ],
+        ];
+    }
+
     private function setupFinancialAccounts($tenant_id)
     {
         //create the tenants accounts
@@ -367,17 +431,6 @@ trait TenantTrait
                     'slug' => 'other-expenses',
                     'name' => 'Other Expenses',
                     'type' => 'expense',
-                    'sub_type' => NULL,
-                    'description' => NULL,
-                    'payment' => 0,
-                ]);
-        Account::create([
-                    'code' => 6,
-                    'tenant_id' => $tenant_id,
-                    'parent_code' => null,
-                    'slug' => 'inventory',
-                    'name' => 'Inventory',
-                    'type' => 'inventory',
                     'sub_type' => NULL,
                     'description' => NULL,
                     'payment' => 0,
@@ -631,28 +684,6 @@ trait TenantTrait
                     'slug' => 'cost-of-sales',
                     'name' => 'Cost of Sales',
                     'type' => 'cost_of_sales',
-                    'sub_type' => NULL,
-                    'description' => NULL,
-                    'payment' => 0,
-                ]);
-        Account::create([
-                    'code' => 57,
-                    'tenant_id' => $tenant_id,
-                    'parent_code' => 6,
-                    'slug' => 'goods-in-transit',
-                    'name' => 'Goods In Transit',
-                    'type' => 'inventory',
-                    'sub_type' => NULL,
-                    'description' => NULL,
-                    'payment' => 0,
-                ]);
-        Account::create([
-                    'code' => 66,
-                    'tenant_id' => $tenant_id,
-                    'parent_code' => 6,
-                    'slug' => 'salesperson-inventory',
-                    'name' => 'SalesPerson Inventory',
-                    'type' => 'inventory',
                     'sub_type' => NULL,
                     'description' => NULL,
                     'payment' => 0,
@@ -1519,17 +1550,6 @@ trait TenantTrait
                     'payment' => 0,
                 ]);
         Account::create([
-                    'code' => 273,
-                    'tenant_id' => $tenant_id,
-                    'parent_code' => 6,
-                    'slug' => 'inventory-reserve',
-                    'name' => 'Inventory Reserve ',
-                    'type' => 'inventory',
-                    'sub_type' => NULL,
-                    'description' => NULL,
-                    'payment' => 0,
-                ]);
-        Account::create([
                     'code' => 274,
                     'tenant_id' => $tenant_id,
                     'parent_code' => null,
@@ -1635,17 +1655,6 @@ trait TenantTrait
                     'slug' => 'warranty-expense',
                     'name' => 'Warranty Expense',
                     'type' => 'expense',
-                    'sub_type' => NULL,
-                    'description' => NULL,
-                    'payment' => 0,
-                ]);
-        Account::create([
-                    'code' => 316,
-                    'tenant_id' => $tenant_id,
-                    'parent_code' => 6,
-                    'slug' => 'damages',
-                    'name' => 'Damages',
-                    'type' => 'inventory',
                     'sub_type' => NULL,
                     'description' => NULL,
                     'payment' => 0,
@@ -1801,28 +1810,6 @@ trait TenantTrait
                     'name' => 'Excise Duty Output',
                     'type' => 'liability',
                     'sub_type' => 'current liability',
-                    'description' => NULL,
-                    'payment' => 0,
-                ]);
-        Account::create([
-                    'code' => 820,
-                    'tenant_id' => $tenant_id,
-                    'parent_code' => null,
-                    'slug' => 'branches',
-                    'name' => 'Branches',
-                    'type' => 'inventory',
-                    'sub_type' => NULL,
-                    'description' => NULL,
-                    'payment' => 0,
-                ]);
-        Account::create([
-                    'code' => 821,
-                    'tenant_id' => $tenant_id,
-                    'parent_code' => null,
-                    'slug' => 'stores',
-                    'name' => 'Stores',
-                    'type' => 'inventory',
-                    'sub_type' => NULL,
                     'description' => NULL,
                     'payment' => 0,
                 ]);
