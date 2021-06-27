@@ -313,9 +313,24 @@ trait TenantTrait
 
     private function setupFinancialAccountTypes($tenant_id)
     {
+        /*
+         * BALANCE SHEET – ACCOUNTS TYPICALLY RESTRICTED TO FINANCE AND ACCOUNTING CORE OFFICES ONLY.
+         * - Assets
+         * - Liabilities
+         * - Equity
+         *
+         * INCOME STATEMENT – ACCOUNTS USED TO RECORD FINANCIAL ACTIVITY IN DURING THE FISCAL YEAR.
+         * - Operating Revenues
+         * - Non-Operating Revenues
+         * - Operating Expenses – Payroll
+         * - Operating Expenses – Non-Payroll
+         * – Non-Operating Expenses
+         */
         $types = [
-            //balance sheet
-            'asset' => [
+            //balance sheet *****************************
+
+            //1XXXXX – Assets || 100-199
+            'Assets' => [
                 'Cash And Financial Assets' => [
                     'Cash and Cash Equivalents',
                     'Financial Assets (Investments)',
@@ -332,45 +347,389 @@ trait TenantTrait
                     'Raw Material, Parts And Supplies',
                     'Work In Process',
                     'Finished Goods',
+                    'Other Inventory'
                 ],
                 'Accruals And Additional Assets' => [
-                    'xxxx',
-                    'xxxx'
+                    'Prepaid Expense',
+                    'Accrued Income',
+                    'Additional Assets'
                 ],
                 'Property, Plant And Equipment' => [
-                    'xxxx',
-                    'xxxx'
+                    'Land And Land Improvements',
+                    'Buildings, Structures And Improvements',
+                    'Machinery And Equipment',
+                    'Furniture And Fixtures',
+                    'Additional Property, Plant And Equipment',
+                    'Construction In Progress',
                 ],
                 'Intangible Assets (Excluding Goodwill)' => [
+                    'Intellectual Property',
+                    'Computer Software',
+                    'Trade And Distribution Assets',
+                    'Contracts And Rights',
+                    'Right To Use Assets (Classified By Type)',
+                    'Other Intangible Assets',
+                    'Acquisition In Progress'
+                ],
+                'Goodwill' => [
+                    'Goodwill'
+                ],
+            ],
+
+            //2XXXXX – Liabilities || 200-299
+            'Liabilities' => [
+                'Payables' => [
+                    'Accounts Payables',
+                    'Dividends Payable',
+                    'Interest Payable',
+                    'Other Payables',
+                ],
+                'Accruals And Other Liabilities' => [
+                    'Accrued Expenses',
+                    'Deferred Income (Unearned Revenue) ',
+                    'Accrued Taxes (Other Than Payroll)',
+                    'Other (Non-Financial) Liabilities',
+                ],
+                'Financial Labilities' => [
+                    'Notes Payable',
+                    'Loans Payable',
+                    'Bonds (Debentures)',
+                    'Other Debts And Borrowings',
+                    'Lease Obligations',
+                    'Derivative Financial Liabilities',
+                    'Other Liabilities',
+                ],
+                'Provisions (Contingencies)' => [
+                    'Customer Related Provisions',
+                    'Ligation And Regulatory Provisions',
+                    'Other Provisions',
+                ],
+            ],
+
+            //3XXXXX – Equity || 300-399
+            'Equity' => [
+                'Owners Equity (Attributable To Owners Of Parent)' => [
+                    'Equity At par (Issued Capital)',
+                    'Additional Paid-in Capital'
+                ],
+                'Retained Earnings' => [
+                    'Appropriated',
+                    'Unappropriated',
+                    'Deficit',
+                    'In Suspense'
+                ],
+                //'Accumulated OCI (US GAAP)' => [
+                //    'Accumulated OCI (US GAAP)'
+                //],
+                //'Other Reserves (IFRS)' => [
+                //    'Other Reserves (IFRS)'
+                //],
+                'Other Equity Items' => [
+                    'ESOP Related Items',
+                    'Subscribed Stock Receivables',
+                    'Treasury Stock',
+                    'Miscellaneous Equity'
+                ],
+                //'Noncontrolling (Minority) Interest' => [
+                //    'Noncontrolling (Minority) Interest',
+                //],
+            ],
+
+            //income statement ***************************
+
+            //4XXXXX – Operating Revenues || 400-499
+            'Operating Revenue' => [
+                'Recognized Point Of Time' => [
                     'xxxx',
                     'xxxx'
                 ],
-            ],
-            'liability' => [
-                'xxxx' => [
+                'Recognized Over Time' => [
                     'xxxx',
                     'xxxx'
                 ],
-            ],
-            'equity' => [
-                'xxxx' => [
+                'Adjustments' => [
                     'xxxx',
                     'xxxx'
                 ],
             ],
 
-            //income statement
-            'revenue' => [
-                'xxxx' => [
-                    'xxxx',
-                    'xxxx'
+            //5XXXXX – Non-Operating Revenues
+            'Non-Operating Revenue' => [
+                'Other Revenue' => [
+                    'Other Revenue'
+                ],
+                'Gains And Losses' => [
+                    'Foreign Currency Transaction Gain (Loss)',
+                    'Gain (Loss) On Investments',
+                    'Gain (Loss) On Derivatives',
+                    'Gain (Loss) On Disposal Of Assets',
+                    'Debt Related Gain (Loss)',
+                    'Impairment Loss',
+                    'Other Gains And (Losses)',
+                    'Other Revenue',
                 ],
             ],
-            'expenses' => [
-                'xxxx' => [
-                    'xxxx',
-                    'xxxx'
+
+            //6XXXXX – Operating Expenses – Payroll
+            'Operating Expenses – Payroll' => [
+                'Payroll' => [
+                    'Salaries and wages',
+                    'Gross Salaries',
+                    'Net Salary Control',
+                ]
+            ],
+
+            //7XXXXX – Operating Expenses – Non-Payroll
+            'Operating Expenses – Non-Payroll' => [
+                'Expenses Classified By Nature' => [
+                    'Material And Merchandise',
+                    'Employee Benefits',
+                    'Services',
+                    'Amortization',
+                    //'Increase (Decrease) In Inventories Of Finished Goods And Work In Progress',
+                    //'Other Work Performed By Entity And Capitalized',
+
+
+                    'Lodging',
+                    'Office Supplies',
+                    'Advertising And Marketing',
+                    'Bank Fees and Charges',
+                    'Credit Card Charges',
+                    'Travel Expense',
+                    'Telephone Expense',
+                    'Automobile Expense',
+                    'IT and Internet Expenses',
+                    'Rent Expense',
+                    'Janitorial Expense',
+                    'Postage',
+                    'Bad Debt',
+                    'Printing and Stationery',
+                    'Salaries and Employee Wages',
+                    'Uncategorized',
+                    'Meals and Entertainment',
+                    'Depreciation Expense',
+                    'Consultant Expense',
+                    'Repairs and Maintenance',
+                    'Other Expenses',
                 ],
+                'Expenses Classified By Function' => [
+                    'Cost Of Sales',
+                    'Selling, General And Administrative ',
+                    'Accounts Receivable, Credit Loss (Reversal)',
+                ],
+            ],
+
+            //8XXXXX – Non-Operating Expenses
+            'Non-Operating Expenses' => [
+                'Other Expenses' => [
+                    'Other Expenses',
+                ],
+                'Taxes (Other Than Income And Payroll) And Fees' => [
+                    'Real Estate Taxes And Insurance',
+                    'Highway (Road) Taxes And Tolls',
+                    'Direct Tax And License Fees',
+                    'Excise And Sales Taxes',
+                    'Customs Fees And Duties (Not Classified As Sales Or Excise)',
+                    'Non-Deductible VAT (GST)',
+                    'General Insurance Expense',
+                    'Administrative Fees (Revenue Stamps)',
+                    'Fines And Penalties',
+                    'Miscellaneous Taxes',
+                    'Other Taxes And Fees',
+                ],
+                'Income Tax Expense (Benefit)' => [
+                    'Income Tax Expense (Benefit)',
+                ],
+            ],
+        ];
+
+        $type = [
+            'asset' => [
+                [
+                    'title' => 'Assets',
+                    'categories' => [
+                        [
+                            'name' => 'Cash And Financial Assets',
+                            'accounts' => [
+                                'Cash and Cash Equivalents',
+                                'Financial Assets (Investments)',
+                                'Restricted Cash and Financial Assets',
+                                'Additional Financial Assets and Investments',
+                            ]
+                        ],
+                        [
+                            'name' => 'Receivables And Contracts',
+                            'accounts' =>  [
+                                'Accounts Receivable', //Accounts, Notes And Loans Receivable
+                                'Contracts',
+                                'Nontrade And Other Receivables',
+                            ],
+                        ],
+                        [
+                            'name' => 'Inventory',
+                            'accounts' => [
+                                'Merchandise',
+                                'Raw Material, Parts And Supplies',
+                                'Work In Process',
+                                'Finished Goods',
+                                'Other Inventory'
+                            ],
+                        ],
+                        [
+                            'name' => 'Accruals And Additional Assets',
+                            'accounts' => [
+                                'Prepaid Expense',
+                                'Accrued Income',
+                                'Additional Assets'
+                            ],
+                        ],
+                        [
+                            'name' => 'Property, Plant And Equipment',
+                            'accounts' => [
+                                'Land And Land Improvements',
+                                'Buildings, Structures And Improvements',
+                                'Machinery And Equipment',
+                                'Furniture And Fixtures',
+                                'Additional Property, Plant And Equipment',
+                                'Construction In Progress',
+                            ],
+                        ],
+                        [
+                            'name' => 'Intangible Assets (Excluding Goodwill)',
+                            'accounts' => [
+                                'Intellectual Property',
+                                'Computer Software',
+                                'Trade And Distribution Assets',
+                                'Contracts And Rights',
+                                'Right To Use Assets (Classified By Type)',
+                                'Other Intangible Assets',
+                                'Acquisition In Progress'
+                            ],
+                        ],
+                        [
+                            'name' => 'Goodwill',
+                            'accounts' => [
+                                'Goodwill'
+                            ],
+                        ],
+                    ],
+                ]
+            ],
+            'liability' => [
+                [
+                    'title' => 'Liabilities',
+                    'categories' => [
+                        [
+                            'name' => 'Payables',
+                            'accounts' => [
+                                'Accounts Payables',
+                                'Dividends Payable',
+                                'Interest Payable',
+                                'Other Payables',
+                            ]
+                        ],
+                        [
+                            'name' => 'Accruals And Other Liabilities',
+                            'accounts' => [
+                                'Accrued Expenses',
+                                'Deferred Income (Unearned Revenue) ',
+                                'Accrued Taxes (Other Than Payroll)',
+                                'Other (Non-Financial) Liabilities',
+                            ]
+                        ],
+                        [
+                            'name' => 'Financial Labilities',
+                            'accounts' => [
+                                'Notes Payable',
+                                'Loans Payable',
+                                'Bonds (Debentures)',
+                                'Other Debts And Borrowings',
+                                'Lease Obligations',
+                                'Derivative Financial Liabilities',
+                                'Other Liabilities',
+                            ]
+                        ],
+                        [
+                            'name' => 'Provisions (Contingencies)',
+                            'accounts' => [
+                                'Customer Related Provisions',
+                                'Ligation And Regulatory Provisions',
+                                'Other Provisions',
+                            ]
+                        ],
+                    ]
+                ]
+            ],
+            'equity' => [
+                [
+                    'title' => 'Equity',
+                    'categories' => [
+                        [
+                            'name' => 'Owners Equity (Attributable To Owners Of Parent)',
+                            'accounts' => [
+                                'Equity At par (Issued Capital)',
+                                'Additional Paid-in Capital'
+                            ]
+                        ],
+                        [
+                            'name' => 'Retained Earnings',
+                            'accounts' => [
+                                'Appropriated',
+                                'Unappropriated',
+                                'Deficit',
+                                'In Suspense'
+                            ]
+                        ],
+                        [
+                            'name' => 'Other Equity Items',
+                            'accounts' => [
+                                'ESOP Related Items',
+                                'Subscribed Stock Receivables',
+                                'Treasury Stock',
+                                'Miscellaneous Equity'
+                            ]
+                        ],
+                    ]
+                ]
+            ],
+            'revenue' => [
+                [
+                    'title' => 'Operating Revenue',
+                    'categories' => [
+                        [
+                            'name' => '',
+                            'accounts' => []
+                        ],
+                        [
+                            'name' => '',
+                            'accounts' => []
+                        ],
+                        [
+                            'name' => '',
+                            'accounts' => []
+                        ],
+                    ]
+                ],
+                [
+                    'title' => 'Non-Operating Revenue',
+                    'categories' => [
+                        [
+                            'name' => '',
+                            'accounts' => []
+                        ],
+                    ]
+                ],
+            ],
+            'expense' => [
+                [
+                    'title' => '',
+                    'categories' => [
+                        [
+                            'name' => '',
+                            'accounts' => []
+                        ],
+                    ]
+                ]
             ],
         ];
     }
