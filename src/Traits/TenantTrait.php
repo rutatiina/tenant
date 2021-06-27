@@ -315,16 +315,16 @@ trait TenantTrait
     {
         /*
          * BALANCE SHEET – ACCOUNTS TYPICALLY RESTRICTED TO FINANCE AND ACCOUNTING CORE OFFICES ONLY.
-         * - Assets
-         * - Liabilities
-         * - Equity
+         * - 1XXXXX – Assets
+         * - 2XXXXX – Liabilities
+         * - 3XXXXX – Equity
          *
          * INCOME STATEMENT – ACCOUNTS USED TO RECORD FINANCIAL ACTIVITY IN DURING THE FISCAL YEAR.
-         * - Operating Revenues
-         * - Non-Operating Revenues
-         * - Operating Expenses – Payroll
-         * - Operating Expenses – Non-Payroll
-         * – Non-Operating Expenses
+         * - 4XXXXX – Operating Revenues
+         * - 5XXXXX – Non-Operating Revenues
+         * - 6XXXXX – Operating Expenses – Payroll
+         * - 7XXXXX – Operating Expenses – Non-Payroll (Most common for requisitions, travel, PCard, etc.)
+         * – 8XXXXX – Non-Operating Expenses
          */
         $types = [
             //balance sheet *****************************
@@ -694,19 +694,41 @@ trait TenantTrait
             ],
             'revenue' => [
                 [
-                    'title' => 'Operating Revenue',
+                    'title' => 'Revenue',
                     'categories' => [
                         [
-                            'name' => '',
-                            'accounts' => []
+                            'name' => 'Revenue',
+                            'accounts' => [
+                                'Sales',
+                                'General Revenue',
+                                'Interest Revenue',
+                                'Late Fee Revenue',
+                                'Discount',
+                                'Shipping Charge',
+                                'Other Charges',
+                            ]
                         ],
                         [
-                            'name' => '',
-                            'accounts' => []
+                            'name' => 'Recognized Point Of Time',
+                            'accounts' => [
+                                'Goods',
+                                'Services'
+                            ]
                         ],
                         [
-                            'name' => '',
-                            'accounts' => []
+                            'name' => 'Recognized Over Time',
+                            'accounts' => [
+                                'Products',
+                                'Services'
+                            ]
+                        ],
+                        [
+                            'name' => 'Adjustments',
+                            'accounts' => [
+                                'Variable Consideration',
+                                'Consideration Paid (Payable) To Customers',
+                                'Other Adjustments'
+                            ]
                         ],
                     ]
                 ],
@@ -714,19 +736,111 @@ trait TenantTrait
                     'title' => 'Non-Operating Revenue',
                     'categories' => [
                         [
-                            'name' => '',
-                            'accounts' => []
+                            'name' => 'Gains And Losses',
+                            'accounts' => [
+                                'Foreign Currency Transaction Gain (Loss)',
+                                'Gain (Loss) On Investments',
+                                'Gain (Loss) On Derivatives',
+                                'Gain (Loss) On Disposal Of Assets',
+                                'Debt Related Gain (Loss)',
+                                'Impairment Loss',
+                                'Other Gains And (Losses)',
+                            ]
                         ],
                     ]
                 ],
             ],
             'expense' => [
                 [
-                    'title' => '',
+                    'title' => 'Operating Expenses – Payroll',
                     'categories' => [
                         [
-                            'name' => '',
-                            'accounts' => []
+                            'name' => 'Payroll',
+                            'accounts' => [
+                                'Salaries and wages',
+                                'Gross Salaries',
+                                'Net Salary Control',
+                            ]
+                        ],
+                    ]
+                ],
+                [
+                    'title' => 'Operating Expenses – Non-Payroll',
+                    'categories' => [
+                        [
+                            'name' => 'Expenses Classified By Nature',
+                            'accounts' => [
+                                'Material And Merchandise',
+                                'Employee Benefits',
+                                'Services',
+                                'Amortization',
+                                //'Increase (Decrease) In Inventories Of Finished Goods And Work In Progress',
+                                //'Other Work Performed By Entity And Capitalized',
+
+
+                                'Lodging',
+                                'Office Supplies',
+                                'Advertising And Marketing',
+                                'Bank Fees and Charges',
+                                'Credit Card Charges',
+                                'Travel Expense',
+                                'Telephone Expense',
+                                'Automobile Expense',
+                                'IT and Internet Expenses',
+                                'Rent Expense',
+                                'Janitorial Expense',
+                                'Postage',
+                                'Bad Debt',
+                                'Printing and Stationery',
+                                'Salaries and Employee Wages',
+                                'Uncategorized',
+                                'Meals and Entertainment',
+                                'Depreciation Expense',
+                                'Consultant Expense',
+                                'Repairs and Maintenance',
+                                'Other Expenses',
+                            ]
+                        ],
+                        [
+                            'name' => 'Expenses Classified By Function',
+                            'accounts' => [
+                                'Cost Of Sales',
+                                'Selling, General And Administrative ',
+                                'Accounts Receivable, Credit Loss (Reversal)',
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    'title' => 'Non-Operating Expenses',
+                    'categories' => [
+                        [
+                            'name' => 'Other Expenses',
+                            'accounts' => [
+                                'Other Expenses'
+                            ]
+                        ],
+                        [
+                            'name' => 'Taxes (Other Than Income And Payroll) And Fees',
+                            'accounts' => [
+                                'Real Estate Taxes And Insurance',
+                                'Highway (Road) Taxes And Tolls',
+                                'Direct Tax And License Fees',
+                                'Excise And Sales Taxes',
+                                'Customs Fees And Duties (Not Classified As Sales Or Excise)',
+                                'Non-Deductible VAT (GST)',
+                                'General Insurance Expense',
+                                'Administrative Fees (Revenue Stamps)',
+                                'Fines And Penalties',
+                                'Miscellaneous Taxes',
+                                'Other Taxes And Fees',
+                            ]
+                        ],
+                        [
+                            'name' => 'Income Tax Expense (Benefit)',
+                            'accounts' => [
+                                'Income Tax Expense (Benefit)',
+                            ]
                         ],
                     ]
                 ]
