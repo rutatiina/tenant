@@ -327,222 +327,6 @@ trait TenantTrait
          * - 7XXXXX – Operating Expenses – Non-Payroll (Most common for requisitions, travel, PCard, etc.)
          * – 8XXXXX – Non-Operating Expenses
          */
-        $types = [
-            //balance sheet *****************************
-
-            //1XXXXX – Assets || 100-199
-            'Assets' => [
-                'Cash And Financial Assets' => [
-                    'Cash and Cash Equivalents',
-                    'Financial Assets (Investments)',
-                    'Restricted Cash and Financial Assets',
-                    'Additional Financial Assets and Investments',
-                ],
-                'Receivables And Contracts' => [
-                    'Accounts Receivable', //Accounts, Notes And Loans Receivable
-                    'Contracts',
-                    'Nontrade And Other Receivables',
-                ],
-                'Inventory' => [
-                    'Merchandise',
-                    'Raw Material, Parts And Supplies',
-                    'Work In Process',
-                    'Finished Goods',
-                    'Other Inventory'
-                ],
-                'Accruals And Additional Assets' => [
-                    'Prepaid Expense',
-                    'Accrued Income',
-                    'Additional Assets'
-                ],
-                'Property, Plant And Equipment' => [
-                    'Land And Land Improvements',
-                    'Buildings, Structures And Improvements',
-                    'Machinery And Equipment',
-                    'Furniture And Fixtures',
-                    'Additional Property, Plant And Equipment',
-                    'Construction In Progress',
-                ],
-                'Intangible Assets (Excluding Goodwill)' => [
-                    'Intellectual Property',
-                    'Computer Software',
-                    'Trade And Distribution Assets',
-                    'Contracts And Rights',
-                    'Right To Use Assets (Classified By Type)',
-                    'Other Intangible Assets',
-                    'Acquisition In Progress'
-                ],
-                'Goodwill' => [
-                    'Goodwill'
-                ],
-            ],
-
-            //2XXXXX – Liabilities || 200-299
-            'Liabilities' => [
-                'Payables' => [
-                    'Accounts Payables',
-                    'Dividends Payable',
-                    'Interest Payable',
-                    'Other Payables',
-                ],
-                'Accruals And Other Liabilities' => [
-                    'Accrued Expenses',
-                    'Deferred Income (Unearned Revenue) ',
-                    'Accrued Taxes (Other Than Payroll)',
-                    'Other (Non-Financial) Liabilities',
-                ],
-                'Financial Labilities' => [
-                    'Notes Payable',
-                    'Loans Payable',
-                    'Bonds (Debentures)',
-                    'Other Debts And Borrowings',
-                    'Lease Obligations',
-                    'Derivative Financial Liabilities',
-                    'Other Liabilities',
-                ],
-                'Provisions (Contingencies)' => [
-                    'Customer Related Provisions',
-                    'Ligation And Regulatory Provisions',
-                    'Other Provisions',
-                ],
-            ],
-
-            //3XXXXX – Equity || 300-399
-            'Equity' => [
-                'Owners Equity (Attributable To Owners Of Parent)' => [
-                    'Equity At par (Issued Capital)',
-                    'Additional Paid-in Capital'
-                ],
-                'Retained Earnings' => [
-                    'Appropriated',
-                    'Unappropriated',
-                    'Deficit',
-                    'In Suspense'
-                ],
-                //'Accumulated OCI (US GAAP)' => [
-                //    'Accumulated OCI (US GAAP)'
-                //],
-                //'Other Reserves (IFRS)' => [
-                //    'Other Reserves (IFRS)'
-                //],
-                'Other Equity Items' => [
-                    'ESOP Related Items',
-                    'Subscribed Stock Receivables',
-                    'Treasury Stock',
-                    'Miscellaneous Equity'
-                ],
-                //'Noncontrolling (Minority) Interest' => [
-                //    'Noncontrolling (Minority) Interest',
-                //],
-            ],
-
-            //income statement ***************************
-
-            //4XXXXX – Operating Revenues || 400-499
-            'Operating Revenue' => [
-                'Recognized Point Of Time' => [
-                    'xxxx',
-                    'xxxx'
-                ],
-                'Recognized Over Time' => [
-                    'xxxx',
-                    'xxxx'
-                ],
-                'Adjustments' => [
-                    'xxxx',
-                    'xxxx'
-                ],
-            ],
-
-            //5XXXXX – Non-Operating Revenues
-            'Non-Operating Revenue' => [
-                'Other Revenue' => [
-                    'Other Revenue'
-                ],
-                'Gains And Losses' => [
-                    'Foreign Currency Transaction Gain (Loss)',
-                    'Gain (Loss) On Investments',
-                    'Gain (Loss) On Derivatives',
-                    'Gain (Loss) On Disposal Of Assets',
-                    'Debt Related Gain (Loss)',
-                    'Impairment Loss',
-                    'Other Gains And (Losses)',
-                    'Other Revenue',
-                ],
-            ],
-
-            //6XXXXX – Operating Expenses – Payroll
-            'Operating Expenses – Payroll' => [
-                'Payroll' => [
-                    'Salaries and wages',
-                    'Gross Salaries',
-                    'Net Salary Control',
-                ]
-            ],
-
-            //7XXXXX – Operating Expenses – Non-Payroll
-            'Operating Expenses – Non-Payroll' => [
-                'Expenses Classified By Nature' => [
-                    'Material And Merchandise',
-                    'Employee Benefits',
-                    'Services',
-                    'Amortization',
-                    //'Increase (Decrease) In Inventories Of Finished Goods And Work In Progress',
-                    //'Other Work Performed By Entity And Capitalized',
-
-
-                    'Lodging',
-                    'Office Supplies',
-                    'Advertising And Marketing',
-                    'Bank Fees and Charges',
-                    'Credit Card Charges',
-                    'Travel Expense',
-                    'Telephone Expense',
-                    'Automobile Expense',
-                    'IT and Internet Expenses',
-                    'Rent Expense',
-                    'Janitorial Expense',
-                    'Postage',
-                    'Bad Debt',
-                    'Printing and Stationery',
-                    'Salaries and Employee Wages',
-                    'Uncategorized',
-                    'Meals and Entertainment',
-                    'Depreciation Expense',
-                    'Consultant Expense',
-                    'Repairs and Maintenance',
-                    'Other Expenses',
-                ],
-                'Expenses Classified By Function' => [
-                    'Cost Of Sales',
-                    'Selling, General And Administrative ',
-                    'Accounts Receivable, Credit Loss (Reversal)',
-                ],
-            ],
-
-            //8XXXXX – Non-Operating Expenses
-            'Non-Operating Expenses' => [
-                'Other Expenses' => [
-                    'Other Expenses',
-                ],
-                'Taxes (Other Than Income And Payroll) And Fees' => [
-                    'Real Estate Taxes And Insurance',
-                    'Highway (Road) Taxes And Tolls',
-                    'Direct Tax And License Fees',
-                    'Excise And Sales Taxes',
-                    'Customs Fees And Duties (Not Classified As Sales Or Excise)',
-                    'Non-Deductible VAT (GST)',
-                    'General Insurance Expense',
-                    'Administrative Fees (Revenue Stamps)',
-                    'Fines And Penalties',
-                    'Miscellaneous Taxes',
-                    'Other Taxes And Fees',
-                ],
-                'Income Tax Expense (Benefit)' => [
-                    'Income Tax Expense (Benefit)',
-                ],
-            ],
-        ];
 
         $types = [
             'asset' => [
@@ -556,19 +340,19 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Cash and Cash Equivalents',
-                                    'code' => 111000
+                                    'code' => 110100
                                 ],
                                 [
                                     'name' => 'Financial Assets (Investments)',
-                                    'code' => 112000
+                                    'code' => 110200
                                 ],
                                 [
                                     'name' => 'Restricted Cash and Financial Assets',
-                                    'code' => 113000
+                                    'code' => 110300
                                 ],
                                 [
                                     'name' => 'Additional Financial Assets and Investments',
-                                    'code' => 114000
+                                    'code' => 110400
                                 ],
                             ]
                         ],
@@ -578,15 +362,15 @@ trait TenantTrait
                             'accounts' =>  [
                                 [
                                     'name' => 'Accounts Receivable',  //Accounts, Notes And Loans Receivable
-                                    'code' => 121000
+                                    'code' => 120100
                                 ],
                                 [
                                     'name' => 'Contracts',
-                                    'code' => 122000
+                                    'code' => 120200
                                 ],
                                 [
                                     'name' => 'Nontrade And Other Receivables',
-                                    'code' => 123000
+                                    'code' => 120300
                                 ],
                             ],
                         ],
@@ -596,23 +380,23 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Merchandise',
-                                    'code' => 131000
+                                    'code' => 130100
                                 ],
                                 [
                                     'name' => 'Raw Material, Parts And Supplies',
-                                    'code' => 132000
+                                    'code' => 130200
                                 ],
                                 [
                                     'name' => 'Work In Process',
-                                    'code' => 133000
+                                    'code' => 130300
                                 ],
                                 [
                                     'name' => 'Finished Goods',
-                                    'code' => 134000
+                                    'code' => 130400
                                 ],
                                 [
                                     'name' => 'Other Inventory',
-                                    'code' => 135000
+                                    'code' => 130500
                                 ]
                             ],
                         ],
@@ -622,15 +406,15 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Prepaid Expense',
-                                    'code' => 141000
+                                    'code' => 140100
                                 ],
                                 [
                                     'name' => 'Accrued Income',
-                                    'code' => 142000
+                                    'code' => 140200
                                 ],
                                 [
                                     'name' => 'Additional Assets',
-                                    'code' => 143000
+                                    'code' => 140300
                                 ]
                             ],
                         ],
@@ -640,27 +424,27 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Land And Land Improvements',
-                                    'code' => 151000
+                                    'code' => 150100
                                 ],
                                 [
                                     'name' => 'Buildings, Structures And Improvements',
-                                    'code' => 152000
+                                    'code' => 150200
                                 ],
                                 [
                                     'name' => 'Machinery And Equipment',
-                                    'code' => 153000
+                                    'code' => 150300
                                 ],
                                 [
                                     'name' => 'Furniture And Fixtures',
-                                    'code' => 154000
+                                    'code' => 150400
                                 ],
                                 [
                                     'name' => 'Additional Property, Plant And Equipment',
-                                    'code' => 155000
+                                    'code' => 150500
                                 ],
                                 [
                                     'name' => 'Construction In Progress',
-                                    'code' => 156000
+                                    'code' => 150600
                                 ],
                             ],
                         ],
@@ -670,31 +454,31 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Intellectual Property',
-                                    'code' => 161000
+                                    'code' => 160100
                                 ],
                                 [
                                     'name' => 'Computer Software',
-                                    'code' => 162000
+                                    'code' => 160200
                                 ],
                                 [
                                     'name' => 'Trade And Distribution Assets',
-                                    'code' => 163000
+                                    'code' => 160300
                                 ],
                                 [
                                     'name' => 'Contracts And Rights',
-                                    'code' => 164000
+                                    'code' => 160400
                                 ],
                                 [
                                     'name' => 'Right To Use Assets (Classified By Type)',
-                                    'code' => 165000
+                                    'code' => 160500
                                 ],
                                 [
                                     'name' => 'Other Intangible Assets',
-                                    'code' => 166000
+                                    'code' => 160600
                                 ],
                                 [
                                     'name' => 'Acquisition In Progress',
-                                    'code' => 167000
+                                    'code' => 160700
                                 ],
                             ],
                         ],
@@ -704,7 +488,7 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Goodwill',
-                                    'code' => 171000
+                                    'code' => 170100
                                 ],
                             ],
                         ],
@@ -722,19 +506,19 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Accounts Payables',
-                                    'code' => 211000
+                                    'code' => 210100
                                 ],
                                 [
                                     'name' => 'Dividends Payable',
-                                    'code' => 212000
+                                    'code' => 210200
                                 ],
                                 [
                                     'name' => 'Interest Payable',
-                                    'code' => 213000
+                                    'code' => 210300
                                 ],
                                 [
                                     'name' => 'Other Payables',
-                                    'code' => 214000
+                                    'code' => 210400
                                 ],
                             ]
                         ],
@@ -744,19 +528,19 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Accrued Expenses',
-                                    'code' => 221000
+                                    'code' => 220100
                                 ],
                                 [
                                     'name' => 'Deferred Income (Unearned Revenue)',
-                                    'code' => 222000
+                                    'code' => 220200
                                 ],
                                 [
                                     'name' => 'Accrued Taxes (Other Than Payroll)',
-                                    'code' => 223000
+                                    'code' => 220300
                                 ],
                                 [
                                     'name' => 'Other (Non-Financial) Liabilities',
-                                    'code' => 224000
+                                    'code' => 220400
                                 ],
                             ]
                         ],
@@ -766,31 +550,31 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Notes Payable',
-                                    'code' => 231000
+                                    'code' => 230100
                                 ],
                                 [
                                     'name' => 'Loans Payable',
-                                    'code' => 232000
+                                    'code' => 230200
                                 ],
                                 [
                                     'name' => 'Bonds (Debentures)',
-                                    'code' => 233000
+                                    'code' => 230300
                                 ],
                                 [
                                     'name' => 'Other Debts And Borrowings',
-                                    'code' => 234000
+                                    'code' => 230400
                                 ],
                                 [
                                     'name' => 'Lease Obligations',
-                                    'code' => 235000
+                                    'code' => 230500
                                 ],
                                 [
                                     'name' => 'Derivative Financial Liabilities',
-                                    'code' => 236000
+                                    'code' => 230600
                                 ],
                                 [
                                     'name' => 'Other Liabilities',
-                                    'code' => 237000
+                                    'code' => 230700
                                 ],
                             ]
                         ],
@@ -800,15 +584,15 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Customer Related Provisions',
-                                    'code' => 241000
+                                    'code' => 240100
                                 ],
                                 [
                                     'name' => 'Ligation And Regulatory Provisions',
-                                    'code' => 242000
+                                    'code' => 240200
                                 ],
                                 [
                                     'name' => 'Other Provisions',
-                                    'code' => 243000
+                                    'code' => 240300
                                 ],
                             ]
                         ],
@@ -826,11 +610,11 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Equity At par (Issued Capital)',
-                                    'code' => 311000
+                                    'code' => 310100
                                 ],
                                 [
                                     'name' => 'Additional Paid-in Capital',
-                                    'code' => 312000
+                                    'code' => 310200
                                 ],
                             ]
                         ],
@@ -840,19 +624,19 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Appropriated',
-                                    'code' => 321000
+                                    'code' => 320100
                                 ],
                                 [
                                     'name' => 'Unappropriated',
-                                    'code' => 322000
+                                    'code' => 320200
                                 ],
                                 [
                                     'name' => 'Deficit',
-                                    'code' => 323000
+                                    'code' => 320300
                                 ],
                                 [
                                     'name' => 'In Suspense',
-                                    'code' => 324000
+                                    'code' => 320400
                                 ],
                             ]
                         ],
@@ -862,19 +646,19 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'ESOP Related Items',
-                                    'code' => 331000
+                                    'code' => 330100
                                 ],
                                 [
                                     'name' => 'Subscribed Stock Receivables',
-                                    'code' => 332000
+                                    'code' => 330200
                                 ],
                                 [
                                     'name' => 'Treasury Stock',
-                                    'code' => 333000
+                                    'code' => 330300
                                 ],
                                 [
                                     'name' => 'Miscellaneous Equity',
-                                    'code' => 334000
+                                    'code' => 330400
                                 ],
                             ]
                         ],
@@ -892,31 +676,31 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Sales Revenue',
-                                    'code' => 411000
+                                    'code' => 410100
                                 ],
                                 [
                                     'name' => 'General Revenue',
-                                    'code' => 412000
+                                    'code' => 410200
                                 ],
                                 [
                                     'name' => 'Interest Revenue',
-                                    'code' => 413000
+                                    'code' => 410300
                                 ],
                                 [
                                     'name' => 'Late Fee Revenue',
-                                    'code' => 414000
+                                    'code' => 410400
                                 ],
                                 [
                                     'name' => 'Discount',
-                                    'code' => 415000
+                                    'code' => 410500
                                 ],
                                 [
                                     'name' => 'Shipping Charge',
-                                    'code' => 416000
+                                    'code' => 410600
                                 ],
                                 [
                                     'name' => 'Other Charges',
-                                    'code' => 417000
+                                    'code' => 410700
                                 ],
                             ]
                         ],
@@ -926,11 +710,11 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Goods',
-                                    'code' => 421000
+                                    'code' => 420100
                                 ],
                                 [
                                     'name' => 'Services',
-                                    'code' => 422000
+                                    'code' => 420200
                                 ],
                             ]
                         ],
@@ -940,11 +724,11 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Products',
-                                    'code' => 431000
+                                    'code' => 430100
                                 ],
                                 [
                                     'name' => 'Services',
-                                    'code' => 432000
+                                    'code' => 430200
                                 ],
                             ]
                         ],
@@ -954,15 +738,15 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Variable Consideration',
-                                    'code' => 441000
+                                    'code' => 440100
                                 ],
                                 [
                                     'name' => 'Consideration Paid (Payable) To Customers',
-                                    'code' => 442000
+                                    'code' => 440200
                                 ],
                                 [
                                     'name' => 'Other Adjustments',
-                                    'code' => 443000
+                                    'code' => 440300
                                 ],
                             ]
                         ],
@@ -978,31 +762,31 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Foreign Currency Transaction Gain (Loss)',
-                                    'code' => 511000
+                                    'code' => 510100
                                 ],
                                 [
                                     'name' => 'Gain (Loss) On Investments',
-                                    'code' => 512000
+                                    'code' => 510200
                                 ],
                                 [
                                     'name' => 'Gain (Loss) On Derivatives',
-                                    'code' => 513000
+                                    'code' => 510300
                                 ],
                                 [
                                     'name' => 'Gain (Loss) On Disposal Of Assets',
-                                    'code' => 514000
+                                    'code' => 510400
                                 ],
                                 [
                                     'name' => 'Debt Related Gain (Loss)',
-                                    'code' => 515000
+                                    'code' => 510500
                                 ],
                                 [
                                     'name' => 'Impairment Loss',
-                                    'code' => 516000
+                                    'code' => 510600
                                 ],
                                 [
                                     'name' => 'Other Gains And (Losses)',
-                                    'code' => 517000
+                                    'code' => 510700
                                 ],
                             ]
                         ],
@@ -1020,15 +804,15 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Salaries and wages',
-                                    'code' => 611000
+                                    'code' => 610100
                                 ],
                                 [
                                     'name' => 'Gross Salaries',
-                                    'code' => 612000
+                                    'code' => 610200
                                 ],
                                 [
                                     'name' => 'Net Salary Control',
-                                    'code' => 613000
+                                    'code' => 610300
                                 ],
                             ]
                         ],
