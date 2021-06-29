@@ -4,6 +4,7 @@ namespace Rutatiina\Tenant\Traits;
 
 use Illuminate\Support\Facades\Auth;
 use Rutatiina\FinancialAccounting\Models\Account;
+use Rutatiina\FinancialAccounting\Models\FinancialAccountType;
 use Rutatiina\Tax\Models\Tax;
 use Rutatiina\Tenant\Models\Tenant;
 
@@ -311,7 +312,7 @@ trait TenantTrait
 
     }
 
-    private function setupFinancialAccountTypes($tenant_id)
+    private function setupFinancialAccountingAccountTypes($tenant_id)
     {
         /*
          * BALANCE SHEET – ACCOUNTS TYPICALLY RESTRICTED TO FINANCE AND ACCOUNTING CORE OFFICES ONLY.
@@ -543,73 +544,168 @@ trait TenantTrait
             ],
         ];
 
-        $type = [
+        $types = [
             'asset' => [
                 [
                     'title' => 'Assets',
+                    'code' => 100000,
                     'categories' => [
                         [
                             'name' => 'Cash And Financial Assets',
+                            'code' => 110000,
                             'accounts' => [
-                                'Cash and Cash Equivalents',
-                                'Financial Assets (Investments)',
-                                'Restricted Cash and Financial Assets',
-                                'Additional Financial Assets and Investments',
+                                [
+                                    'name' => 'Cash and Cash Equivalents',
+                                    'code' => 111000
+                                ],
+                                [
+                                    'name' => 'Financial Assets (Investments)',
+                                    'code' => 112000
+                                ],
+                                [
+                                    'name' => 'Restricted Cash and Financial Assets',
+                                    'code' => 113000
+                                ],
+                                [
+                                    'name' => 'Additional Financial Assets and Investments',
+                                    'code' => 114000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Receivables And Contracts',
+                            'code' => 120000,
                             'accounts' =>  [
-                                'Accounts Receivable', //Accounts, Notes And Loans Receivable
-                                'Contracts',
-                                'Nontrade And Other Receivables',
+                                [
+                                    'name' => 'Accounts Receivable',  //Accounts, Notes And Loans Receivable
+                                    'code' => 121000
+                                ],
+                                [
+                                    'name' => 'Contracts',
+                                    'code' => 122000
+                                ],
+                                [
+                                    'name' => 'Nontrade And Other Receivables',
+                                    'code' => 123000
+                                ],
                             ],
                         ],
                         [
                             'name' => 'Inventory',
+                            'code' => 130000,
                             'accounts' => [
-                                'Merchandise',
-                                'Raw Material, Parts And Supplies',
-                                'Work In Process',
-                                'Finished Goods',
-                                'Other Inventory'
+                                [
+                                    'name' => 'Merchandise',
+                                    'code' => 131000
+                                ],
+                                [
+                                    'name' => 'Raw Material, Parts And Supplies',
+                                    'code' => 132000
+                                ],
+                                [
+                                    'name' => 'Work In Process',
+                                    'code' => 133000
+                                ],
+                                [
+                                    'name' => 'Finished Goods',
+                                    'code' => 134000
+                                ],
+                                [
+                                    'name' => 'Other Inventory',
+                                    'code' => 135000
+                                ]
                             ],
                         ],
                         [
                             'name' => 'Accruals And Additional Assets',
+                            'code' => 140000,
                             'accounts' => [
-                                'Prepaid Expense',
-                                'Accrued Income',
-                                'Additional Assets'
+                                [
+                                    'name' => 'Prepaid Expense',
+                                    'code' => 141000
+                                ],
+                                [
+                                    'name' => 'Accrued Income',
+                                    'code' => 142000
+                                ],
+                                [
+                                    'name' => 'Additional Assets',
+                                    'code' => 143000
+                                ]
                             ],
                         ],
                         [
                             'name' => 'Property, Plant And Equipment',
+                            'code' => 150000,
                             'accounts' => [
-                                'Land And Land Improvements',
-                                'Buildings, Structures And Improvements',
-                                'Machinery And Equipment',
-                                'Furniture And Fixtures',
-                                'Additional Property, Plant And Equipment',
-                                'Construction In Progress',
+                                [
+                                    'name' => 'Land And Land Improvements',
+                                    'code' => 151000
+                                ],
+                                [
+                                    'name' => 'Buildings, Structures And Improvements',
+                                    'code' => 152000
+                                ],
+                                [
+                                    'name' => 'Machinery And Equipment',
+                                    'code' => 153000
+                                ],
+                                [
+                                    'name' => 'Furniture And Fixtures',
+                                    'code' => 154000
+                                ],
+                                [
+                                    'name' => 'Additional Property, Plant And Equipment',
+                                    'code' => 155000
+                                ],
+                                [
+                                    'name' => 'Construction In Progress',
+                                    'code' => 156000
+                                ],
                             ],
                         ],
                         [
                             'name' => 'Intangible Assets (Excluding Goodwill)',
+                            'code' => 160000,
                             'accounts' => [
-                                'Intellectual Property',
-                                'Computer Software',
-                                'Trade And Distribution Assets',
-                                'Contracts And Rights',
-                                'Right To Use Assets (Classified By Type)',
-                                'Other Intangible Assets',
-                                'Acquisition In Progress'
+                                [
+                                    'name' => 'Intellectual Property',
+                                    'code' => 161000
+                                ],
+                                [
+                                    'name' => 'Computer Software',
+                                    'code' => 162000
+                                ],
+                                [
+                                    'name' => 'Trade And Distribution Assets',
+                                    'code' => 163000
+                                ],
+                                [
+                                    'name' => 'Contracts And Rights',
+                                    'code' => 164000
+                                ],
+                                [
+                                    'name' => 'Right To Use Assets (Classified By Type)',
+                                    'code' => 165000
+                                ],
+                                [
+                                    'name' => 'Other Intangible Assets',
+                                    'code' => 166000
+                                ],
+                                [
+                                    'name' => 'Acquisition In Progress',
+                                    'code' => 167000
+                                ],
                             ],
                         ],
                         [
                             'name' => 'Goodwill',
+                            'code' => 170000,
                             'accounts' => [
-                                'Goodwill'
+                                [
+                                    'name' => 'Goodwill',
+                                    'code' => 171000
+                                ],
                             ],
                         ],
                     ],
@@ -618,43 +714,102 @@ trait TenantTrait
             'liability' => [
                 [
                     'title' => 'Liabilities',
+                    'code' => 200000,
                     'categories' => [
                         [
                             'name' => 'Payables',
+                            'code' => 210000,
                             'accounts' => [
-                                'Accounts Payables',
-                                'Dividends Payable',
-                                'Interest Payable',
-                                'Other Payables',
+                                [
+                                    'name' => 'Accounts Payables',
+                                    'code' => 211000
+                                ],
+                                [
+                                    'name' => 'Dividends Payable',
+                                    'code' => 212000
+                                ],
+                                [
+                                    'name' => 'Interest Payable',
+                                    'code' => 213000
+                                ],
+                                [
+                                    'name' => 'Other Payables',
+                                    'code' => 214000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Accruals And Other Liabilities',
+                            'code' => 220000,
                             'accounts' => [
-                                'Accrued Expenses',
-                                'Deferred Income (Unearned Revenue) ',
-                                'Accrued Taxes (Other Than Payroll)',
-                                'Other (Non-Financial) Liabilities',
+                                [
+                                    'name' => 'Accrued Expenses',
+                                    'code' => 221000
+                                ],
+                                [
+                                    'name' => 'Deferred Income (Unearned Revenue)',
+                                    'code' => 222000
+                                ],
+                                [
+                                    'name' => 'Accrued Taxes (Other Than Payroll)',
+                                    'code' => 223000
+                                ],
+                                [
+                                    'name' => 'Other (Non-Financial) Liabilities',
+                                    'code' => 224000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Financial Labilities',
+                            'code' => 230000,
                             'accounts' => [
-                                'Notes Payable',
-                                'Loans Payable',
-                                'Bonds (Debentures)',
-                                'Other Debts And Borrowings',
-                                'Lease Obligations',
-                                'Derivative Financial Liabilities',
-                                'Other Liabilities',
+                                [
+                                    'name' => 'Notes Payable',
+                                    'code' => 231000
+                                ],
+                                [
+                                    'name' => 'Loans Payable',
+                                    'code' => 232000
+                                ],
+                                [
+                                    'name' => 'Bonds (Debentures)',
+                                    'code' => 233000
+                                ],
+                                [
+                                    'name' => 'Other Debts And Borrowings',
+                                    'code' => 234000
+                                ],
+                                [
+                                    'name' => 'Lease Obligations',
+                                    'code' => 235000
+                                ],
+                                [
+                                    'name' => 'Derivative Financial Liabilities',
+                                    'code' => 236000
+                                ],
+                                [
+                                    'name' => 'Other Liabilities',
+                                    'code' => 237000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Provisions (Contingencies)',
+                            'code' => 240000,
                             'accounts' => [
-                                'Customer Related Provisions',
-                                'Ligation And Regulatory Provisions',
-                                'Other Provisions',
+                                [
+                                    'name' => 'Customer Related Provisions',
+                                    'code' => 241000
+                                ],
+                                [
+                                    'name' => 'Ligation And Regulatory Provisions',
+                                    'code' => 242000
+                                ],
+                                [
+                                    'name' => 'Other Provisions',
+                                    'code' => 243000
+                                ],
                             ]
                         ],
                     ]
@@ -663,30 +818,64 @@ trait TenantTrait
             'equity' => [
                 [
                     'title' => 'Equity',
+                    'code' => 300000,
                     'categories' => [
                         [
                             'name' => 'Owners Equity (Attributable To Owners Of Parent)',
+                            'code' => 310000,
                             'accounts' => [
-                                'Equity At par (Issued Capital)',
-                                'Additional Paid-in Capital'
+                                [
+                                    'name' => 'Equity At par (Issued Capital)',
+                                    'code' => 311000
+                                ],
+                                [
+                                    'name' => 'Additional Paid-in Capital',
+                                    'code' => 312000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Retained Earnings',
+                            'code' => 320000,
                             'accounts' => [
-                                'Appropriated',
-                                'Unappropriated',
-                                'Deficit',
-                                'In Suspense'
+                                [
+                                    'name' => 'Appropriated',
+                                    'code' => 321000
+                                ],
+                                [
+                                    'name' => 'Unappropriated',
+                                    'code' => 322000
+                                ],
+                                [
+                                    'name' => 'Deficit',
+                                    'code' => 323000
+                                ],
+                                [
+                                    'name' => 'In Suspense',
+                                    'code' => 324000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Other Equity Items',
+                            'code' => 330000,
                             'accounts' => [
-                                'ESOP Related Items',
-                                'Subscribed Stock Receivables',
-                                'Treasury Stock',
-                                'Miscellaneous Equity'
+                                [
+                                    'name' => 'ESOP Related Items',
+                                    'code' => 331000
+                                ],
+                                [
+                                    'name' => 'Subscribed Stock Receivables',
+                                    'code' => 332000
+                                ],
+                                [
+                                    'name' => 'Treasury Stock',
+                                    'code' => 333000
+                                ],
+                                [
+                                    'name' => 'Miscellaneous Equity',
+                                    'code' => 334000
+                                ],
                             ]
                         ],
                     ]
@@ -695,56 +884,126 @@ trait TenantTrait
             'revenue' => [
                 [
                     'title' => 'Revenue',
+                    'code' => 400000,
                     'categories' => [
                         [
                             'name' => 'Revenue',
+                            'code' => 410000,
                             'accounts' => [
-                                'Sales',
-                                'General Revenue',
-                                'Interest Revenue',
-                                'Late Fee Revenue',
-                                'Discount',
-                                'Shipping Charge',
-                                'Other Charges',
+                                [
+                                    'name' => 'Sales Revenue',
+                                    'code' => 411000
+                                ],
+                                [
+                                    'name' => 'General Revenue',
+                                    'code' => 412000
+                                ],
+                                [
+                                    'name' => 'Interest Revenue',
+                                    'code' => 413000
+                                ],
+                                [
+                                    'name' => 'Late Fee Revenue',
+                                    'code' => 414000
+                                ],
+                                [
+                                    'name' => 'Discount',
+                                    'code' => 415000
+                                ],
+                                [
+                                    'name' => 'Shipping Charge',
+                                    'code' => 416000
+                                ],
+                                [
+                                    'name' => 'Other Charges',
+                                    'code' => 417000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Recognized Point Of Time',
+                            'code' => 420000,
                             'accounts' => [
-                                'Goods',
-                                'Services'
+                                [
+                                    'name' => 'Goods',
+                                    'code' => 421000
+                                ],
+                                [
+                                    'name' => 'Services',
+                                    'code' => 422000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Recognized Over Time',
+                            'code' => 430000,
                             'accounts' => [
-                                'Products',
-                                'Services'
+                                [
+                                    'name' => 'Products',
+                                    'code' => 431000
+                                ],
+                                [
+                                    'name' => 'Services',
+                                    'code' => 432000
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Adjustments',
+                            'code' => 440000,
                             'accounts' => [
-                                'Variable Consideration',
-                                'Consideration Paid (Payable) To Customers',
-                                'Other Adjustments'
+                                [
+                                    'name' => 'Variable Consideration',
+                                    'code' => 441000
+                                ],
+                                [
+                                    'name' => 'Consideration Paid (Payable) To Customers',
+                                    'code' => 442000
+                                ],
+                                [
+                                    'name' => 'Other Adjustments',
+                                    'code' => 443000
+                                ],
                             ]
                         ],
                     ]
                 ],
                 [
                     'title' => 'Non-Operating Revenue',
+                    'code' => 500000,
                     'categories' => [
                         [
                             'name' => 'Gains And Losses',
+                            'code' => 510000,
                             'accounts' => [
-                                'Foreign Currency Transaction Gain (Loss)',
-                                'Gain (Loss) On Investments',
-                                'Gain (Loss) On Derivatives',
-                                'Gain (Loss) On Disposal Of Assets',
-                                'Debt Related Gain (Loss)',
-                                'Impairment Loss',
-                                'Other Gains And (Losses)',
+                                [
+                                    'name' => 'Foreign Currency Transaction Gain (Loss)',
+                                    'code' => 511000
+                                ],
+                                [
+                                    'name' => 'Gain (Loss) On Investments',
+                                    'code' => 512000
+                                ],
+                                [
+                                    'name' => 'Gain (Loss) On Derivatives',
+                                    'code' => 513000
+                                ],
+                                [
+                                    'name' => 'Gain (Loss) On Disposal Of Assets',
+                                    'code' => 514000
+                                ],
+                                [
+                                    'name' => 'Debt Related Gain (Loss)',
+                                    'code' => 515000
+                                ],
+                                [
+                                    'name' => 'Impairment Loss',
+                                    'code' => 516000
+                                ],
+                                [
+                                    'name' => 'Other Gains And (Losses)',
+                                    'code' => 517000
+                                ],
                             ]
                         ],
                     ]
@@ -753,99 +1012,277 @@ trait TenantTrait
             'expense' => [
                 [
                     'title' => 'Operating Expenses – Payroll',
+                    'code' => 600000,
                     'categories' => [
                         [
                             'name' => 'Payroll',
+                            'code' => 610000,
                             'accounts' => [
-                                'Salaries and wages',
-                                'Gross Salaries',
-                                'Net Salary Control',
+                                [
+                                    'name' => 'Salaries and wages',
+                                    'code' => 611000
+                                ],
+                                [
+                                    'name' => 'Gross Salaries',
+                                    'code' => 612000
+                                ],
+                                [
+                                    'name' => 'Net Salary Control',
+                                    'code' => 613000
+                                ],
                             ]
                         ],
                     ]
                 ],
                 [
                     'title' => 'Operating Expenses – Non-Payroll',
+                    'code' => 700000,
                     'categories' => [
                         [
                             'name' => 'Expenses Classified By Nature',
+                            'code' => 710000,
                             'accounts' => [
-                                'Material And Merchandise',
-                                'Employee Benefits',
-                                'Services',
-                                'Amortization',
-                                //'Increase (Decrease) In Inventories Of Finished Goods And Work In Progress',
-                                //'Other Work Performed By Entity And Capitalized',
+                                [
+                                    'name' => 'Material And Merchandise',
+                                    'code' => 710100
+                                ],
+                                [
+                                    'name' => 'Employee Benefits',
+                                    'code' => 710200
+                                ],
+                                [
+                                    'name' => 'Services',
+                                    'code' => 710300
+                                ],
+                                [
+                                    'name' => 'Amortization',
+                                    'code' => 710400
+                                ],
+                                [
+                                    'name' => 'Increase (Decrease) In Inventories Of Finished Goods And Work In Progress',
+                                    'code' => 710500
+                                ],
+                                [
+                                    'name' => 'Other Work Performed By Entity And Capitalized',
+                                    'code' => 710600
+                                ],
 
-
-                                'Lodging',
-                                'Office Supplies',
-                                'Advertising And Marketing',
-                                'Bank Fees and Charges',
-                                'Credit Card Charges',
-                                'Travel Expense',
-                                'Telephone Expense',
-                                'Automobile Expense',
-                                'IT and Internet Expenses',
-                                'Rent Expense',
-                                'Janitorial Expense',
-                                'Postage',
-                                'Bad Debt',
-                                'Printing and Stationery',
-                                'Salaries and Employee Wages',
-                                'Uncategorized',
-                                'Meals and Entertainment',
-                                'Depreciation Expense',
-                                'Consultant Expense',
-                                'Repairs and Maintenance',
-                                'Other Expenses',
+                                [
+                                    'name' => 'Lodging',
+                                    'code' => 710700
+                                ],
+                                [
+                                    'name' => 'Office Supplies',
+                                    'code' => 710800
+                                ],
+                                [
+                                    'name' => 'Advertising And Marketing',
+                                    'code' => 710900
+                                ],
+                                [
+                                    'name' => 'Bank Fees and Charges',
+                                    'code' => 711000
+                                ],
+                                [
+                                    'name' => 'Credit Card Charges',
+                                    'code' => 711100
+                                ],
+                                [
+                                    'name' => 'Travel Expense',
+                                    'code' => 711200
+                                ],
+                                [
+                                    'name' => 'Telephone Expense',
+                                    'code' => 711300
+                                ],
+                                [
+                                    'name' => 'Automobile Expense',
+                                    'code' => 711400
+                                ],
+                                [
+                                    'name' => 'IT and Internet Expenses',
+                                    'code' => 711500
+                                ],
+                                [
+                                    'name' => 'Rent Expense',
+                                    'code' => 711600
+                                ],
+                                [
+                                    'name' => 'Janitorial Expense',
+                                    'code' => 711700
+                                ],
+                                [
+                                    'name' => 'Postage',
+                                    'code' => 711800
+                                ],
+                                [
+                                    'name' => 'Bad Debt',
+                                    'code' => 711900
+                                ],
+                                [
+                                    'name' => 'Printing and Stationery',
+                                    'code' => 712000
+                                ],
+                                [
+                                    'name' => 'Salaries and Employee Wages',
+                                    'code' => 712100
+                                ],
+                                [
+                                    'name' => 'Uncategorized',
+                                    'code' => 712200
+                                ],
+                                [
+                                    'name' => 'Meals and Entertainment',
+                                    'code' => 712300
+                                ],
+                                [
+                                    'name' => 'Depreciation Expense',
+                                    'code' => 712400
+                                ],
+                                [
+                                    'name' => 'Consultant Expense',
+                                    'code' => 712500
+                                ],
+                                [
+                                    'name' => 'Repairs and Maintenance',
+                                    'code' => 712600
+                                ],
+                                [
+                                    'name' => 'Other Expenses',
+                                    'code' => 712700
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Expenses Classified By Function',
+                            'code' => 720000,
                             'accounts' => [
-                                'Cost Of Sales',
-                                'Selling, General And Administrative ',
-                                'Accounts Receivable, Credit Loss (Reversal)',
+                                [
+                                    'name' => 'Cost Of Sales',
+                                    'code' => 720100
+                                ],
+                                [
+                                    'name' => 'Selling, General And Administrative',
+                                    'code' => 720200
+                                ],
+                                [
+                                    'name' => 'Accounts Receivable, Credit Loss (Reversal)',
+                                    'code' => 720300
+                                ],
                             ]
                         ]
                     ]
                 ],
                 [
                     'title' => 'Non-Operating Expenses',
+                    'code' => 800000,
                     'categories' => [
                         [
                             'name' => 'Other Expenses',
+                            'code' => 810000,
                             'accounts' => [
-                                'Other Expenses'
+                                [
+                                    'name' => 'Other Expenses',
+                                    'code' => 810100
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Taxes (Other Than Income And Payroll) And Fees',
+                            'code' => 820000,
                             'accounts' => [
-                                'Real Estate Taxes And Insurance',
-                                'Highway (Road) Taxes And Tolls',
-                                'Direct Tax And License Fees',
-                                'Excise And Sales Taxes',
-                                'Customs Fees And Duties (Not Classified As Sales Or Excise)',
-                                'Non-Deductible VAT (GST)',
-                                'General Insurance Expense',
-                                'Administrative Fees (Revenue Stamps)',
-                                'Fines And Penalties',
-                                'Miscellaneous Taxes',
-                                'Other Taxes And Fees',
+                                [
+                                    'name' => 'Real Estate Taxes And Insurance',
+                                    'code' => 820100
+                                ],
+                                [
+                                    'name' => 'Highway (Road) Taxes And Tolls',
+                                    'code' => 820200
+                                ],
+                                [
+                                    'name' => 'Direct Tax And License Fees',
+                                    'code' => 820300
+                                ],
+                                [
+                                    'name' => 'Excise And Sales Taxes',
+                                    'code' => 820400
+                                ],
+                                [
+                                    'name' => 'Customs Fees And Duties (Not Classified As Sales Or Excise)',
+                                    'code' => 820500
+                                ],
+                                [
+                                    'name' => 'Non-Deductible VAT (GST)',
+                                    'code' => 820600
+                                ],
+                                [
+                                    'name' => 'General Insurance Expense',
+                                    'code' => 820700
+                                ],
+                                [
+                                    'name' => 'Administrative Fees (Revenue Stamps)',
+                                    'code' => 820800
+                                ],
+                                [
+                                    'name' => 'Fines And Penalties',
+                                    'code' => 820900
+                                ],
+                                [
+                                    'name' => 'Miscellaneous Taxes',
+                                    'code' => 821000
+                                ],
+                                [
+                                    'name' => 'Other Taxes And Fees',
+                                    'code' => 821100
+                                ],
                             ]
                         ],
                         [
                             'name' => 'Income Tax Expense (Benefit)',
+                            'code' => 830000,
                             'accounts' => [
-                                'Income Tax Expense (Benefit)',
+                                [
+                                    'name' => 'Income Tax Expense (Benefit)',
+                                    'code' => 830100
+                                ],
                             ]
                         ],
                     ]
                 ]
             ],
         ];
+
+        foreach ($types as $type => $titles)
+        {
+            foreach ($titles as $title)
+            {
+                foreach ($title['categories'] as $categoryKey => $category)
+                {
+                    FinancialAccountType::create([
+                        'code' => $title['code'].(++$categoryKey),
+                        'tenant_id' => $tenant_id,
+                        'type' => $type,
+                        'title' => $title['title'],
+                        'balance' => null,
+                        'category_name' => $category['name']
+                    ]);
+
+                    foreach ($category['accounts'] as $accountKey => $account)
+                    {
+                        Account::create([
+                            'code' => $title['code'].(++$categoryKey).(++$accountKey),
+                            'tenant_id' => $tenant_id,
+                            'parent_code' => null,
+                            'name' => $account,
+                            'type' => $type,
+                            'title' => $title['title'],
+                            'description' => NULL,
+                            'payment' => 0,
+                        ]);
+                    }
+                }
+            }
+        }
     }
 
     private function setupFinancialAccounts($tenant_id)
