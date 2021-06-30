@@ -34,7 +34,8 @@ trait TenantTrait
 
     public static function tenant()
     {
-    	if (is_null(static::$tenant)) {
+    	if (is_null(static::$tenant))
+    	{
 			static::$tenant = Tenant::find(Auth::user()->tenant->id);
 		}
     }
@@ -109,7 +110,6 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Quotation',
                 'document_type' => null,
-                'financial_account_code' => 28,
             ]);
         }
 
@@ -120,8 +120,8 @@ trait TenantTrait
                 'document_name' => 'Invoice',
                 'document_type' => 'invoice',
                 'number_prefix' => 'RET-',
-                'debit_financial_account_code' => 1, //receviables
-                'credit_financial_account_code' => 70, //Deferred Revenue
+                'debit_financial_account_code' => 120100, //Accounts Receviables
+                'credit_financial_account_code' => 410200, //Deferred Revenue
             ]);
         }
 
@@ -140,8 +140,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Invoice/Receipt',
                 'document_type' => 'receipt',
-                'debit_financial_account_code' => 3, //cash
-                'credit_financial_account_code' => 2, //sales-revenue
+                'debit_financial_account_code' => 110100, //Cash and Cash Equivalents
+                'credit_financial_account_code' => 410100, //Sales Revenue
             ]);
         }
 
@@ -151,8 +151,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Bill',
                 'document_type' => 'bill',
-                'debit_financial_account_code' => 5,
-                'credit_financial_account_code' => 4,
+                'debit_financial_account_code' => 712700, //Other Expenses
+                'credit_financial_account_code' => 210100, //Accounts Payables
             ]);
         }
 
@@ -162,8 +162,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Recurring Bill',
                 'document_type' => null,
-                'debit_financial_account_code' => 5,
-                'credit_financial_account_code' => 4,
+                'debit_financial_account_code' => 712700, //Other Expenses
+                'credit_financial_account_code' => 210100, //Accounts Payables
             ]);
         }
 
@@ -173,8 +173,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Credit Note',
                 'document_type' => null,
-                'debit_financial_account_code' => 69, //2,
-                'credit_financial_account_code' => 1, //Receviables
+                'debit_financial_account_code' => 410800, //Sales Returns
+                'credit_financial_account_code' => 120100, //Accounts Receviables
             ]);
         }
 
@@ -184,8 +184,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Debit Note',
                 'document_type' => null,
-                'debit_financial_account_code' => 4,
-                'credit_financial_account_code' => 68, //Purchase Returns
+                'debit_financial_account_code' => 210100, //Accounts Payables
+                'credit_financial_account_code' => 720400, //Purchase Returns
             ]);
         }
 
@@ -195,8 +195,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Payment Voucher',
                 'document_type' => 'payment',
-                'debit_financial_account_code' => 5,
-                'credit_financial_account_code' => 3,
+                'debit_financial_account_code' => 712700, //Other Expenses
+                'credit_financial_account_code' => 110100, //Cash and Cash Equivalents
             ]);
         }
 
@@ -206,18 +206,19 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Recurring Expense',
                 'document_type' => null,
-                'debit_financial_account_code' => 5,
-                'credit_financial_account_code' => 3,
+                'debit_financial_account_code' => 712700, //Other Expenses
+                'credit_financial_account_code' => 110100, //Cash and Cash Equivalents
             ]);
         }
 
+        /*
         if (class_exists('Rutatiina\GoodsDelivered\Models\GoodsDeliveredSetting'))
         {
             GoodsDeliveredSetting::create([
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Goods Delivered Note',
                 'document_type' => 'inventory',
-                'debit_financial_account_code' => 54,
+                'debit_financial_account_code' => 54, //Cost of Sales
                 'credit_financial_account_code' => 6,
             ]);
         }
@@ -254,6 +255,7 @@ trait TenantTrait
                 'credit_financial_account_code' => 66,
             ]);
         }
+        */
 
         if (class_exists('Rutatiina\Invoice\Models\InvoiceSetting'))
         {
@@ -262,8 +264,8 @@ trait TenantTrait
                 'document_name' => 'Invoice',
                 'document_type' => 'invoice',
                 'number_prefix' => 'INV-',
-                'debit_financial_account_code' => 1,
-                'credit_financial_account_code' => 2,
+                'debit_financial_account_code' => 120100, //Accounts Receviables
+                'credit_financial_account_code' => 410100, //Sales Revenue
             ]);
         }
 
@@ -273,8 +275,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Recurring Invoice',
                 'document_type' => null,
-                'debit_financial_account_code' => 1,
-                'credit_financial_account_code' => 2,
+                'debit_financial_account_code' => 120100, //Accounts Receviables
+                'credit_financial_account_code' => 410100, //Sales Revenue
             ]);
         }
 
@@ -284,8 +286,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Payment Voucher',
                 'document_type' => 'payment',
-                'debit_financial_account_code' => 4,
-                'credit_financial_account_code' => 3,
+                'debit_financial_account_code' => 210100, //Accounts Payables
+                'credit_financial_account_code' => 110100, //Cash and Cash Equivalents
             ]);
         }
 
@@ -295,7 +297,6 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Purchase Order',
                 'document_type' => 'order',
-                'financial_account_code' => 56,
             ]);
         }
 
@@ -305,14 +306,14 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Receipt',
                 'document_type' => 'receipt',
-                'debit_financial_account_code' => 3,
-                'credit_financial_account_code' => 1,
+                'debit_financial_account_code' => 110100, //Cash and Cash Equivalents
+                'credit_financial_account_code' => 120100, //Accounts Receviables
             ]);
         }
 
     }
 
-    private function setupFinancialAccountingAccountTypes($tenant_id)
+    private function setupFinancialAccounts($tenant_id)
     {
         /*
          * BALANCE SHEET – ACCOUNTS TYPICALLY RESTRICTED TO FINANCE AND ACCOUNTING CORE OFFICES ONLY.
@@ -679,7 +680,7 @@ trait TenantTrait
                                     'code' => 410100
                                 ],
                                 [
-                                    'name' => 'General Revenue',
+                                    'name' => 'Deferred Revenue',
                                     'code' => 410200
                                 ],
                                 [
@@ -701,6 +702,10 @@ trait TenantTrait
                                 [
                                     'name' => 'Other Charges',
                                     'code' => 410700
+                                ],
+                                [
+                                    'name' => 'Sales Returns', //is a contr account
+                                    'code' => 410800
                                 ],
                             ]
                         ],
@@ -953,6 +958,10 @@ trait TenantTrait
                                     'name' => 'Accounts Receivable, Credit Loss (Reversal)',
                                     'code' => 720300
                                 ],
+                                [
+                                    'name' => 'Purchase Returns', //contra-expense account; therefore, it can never have a debit balance. The balance will either be zero or credit.
+                                    'code' => 720400
+                                ],
                             ]
                         ]
                     ]
@@ -1040,10 +1049,10 @@ trait TenantTrait
         {
             foreach ($titles as $title)
             {
-                foreach ($title['categories'] as $categoryKey => $category)
+                foreach ($title['categories'] as $category)
                 {
                     FinancialAccountType::create([
-                        'code' => $title['code'].(++$categoryKey),
+                        'code' => $category['code'],
                         'tenant_id' => $tenant_id,
                         'type' => $type,
                         'title' => $title['title'],
@@ -1051,17 +1060,18 @@ trait TenantTrait
                         'category_name' => $category['name']
                     ]);
 
-                    foreach ($category['accounts'] as $accountKey => $account)
+                    foreach ($category['accounts'] as $account)
                     {
                         Account::create([
-                            'code' => $title['code'].(++$categoryKey).(++$accountKey),
+                            'code' => $account['code'],
                             'tenant_id' => $tenant_id,
                             'parent_code' => null,
-                            'name' => $account,
+                            'name' => $account['name'],
                             'type' => $type,
-                            'title' => $title['title'],
-                            'description' => NULL,
-                            'payment' => 0,
+                            'type_code' => $title['code'],
+                            //'balance' => NULL, //debit / credit / both
+                            //'description' => NULL,
+                            //'payment' => 0,
                         ]);
                     }
                 }
@@ -1069,7 +1079,7 @@ trait TenantTrait
         }
     }
 
-    private function setupFinancialAccounts($tenant_id)
+    private function _old__setupFinancialAccounts($tenant_id)
     {
         //create the tenants accounts
 
