@@ -1065,10 +1065,9 @@ trait TenantTrait
                         Account::create([
                             'code' => $account['code'],
                             'tenant_id' => $tenant_id,
-                            'parent_code' => null,
                             'name' => $account['name'],
                             'type' => $type,
-                            'type_code' => $title['code'],
+                            'financial_account_type_code' => $category['code'],
                             //'balance' => NULL, //debit / credit / both
                             //'description' => NULL,
                             //'payment' => 0,
