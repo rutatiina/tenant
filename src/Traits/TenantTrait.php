@@ -5,6 +5,7 @@ namespace Rutatiina\Tenant\Traits;
 use Illuminate\Support\Facades\Auth;
 use Rutatiina\FinancialAccounting\Models\Account;
 use Rutatiina\FinancialAccounting\Models\FinancialAccountType;
+use Rutatiina\POS\Models\POSOrderSetting;
 use Rutatiina\Tax\Models\Tax;
 use Rutatiina\Tenant\Models\Tenant;
 
@@ -103,6 +104,17 @@ trait TenantTrait
         );
 
         //create the settings per transaction to each tenant
+
+        if(class_exists('Rutatiina\POS\Models\POSOrderSetting'))
+        {
+            POSOrderSetting::create([
+                'tenant_id' => $tenant_id,
+                'document_name' => 'Invoice/Receipt',
+                'document_type' => 'receipt',
+                'debit_financial_account_code' => 110100, //Cash and Cash Equivalents
+                'credit_financial_account_code' => 410100, //Sales Revenue
+            ]);
+        }
 
         if(class_exists('Rutatiina\Estimate\Models\EstimateSetting'))
         {
