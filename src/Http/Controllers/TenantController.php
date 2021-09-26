@@ -143,7 +143,7 @@ class TenantController extends Controller
 
         if (!FacadesRequest::wantsJson())
         {
-            return view('l-limitless-bs4.layout_2-ltr-default.appVue');
+            return view('ui.limitless::layout_2-ltr-default.appVue');
         }
 
         //get all services user has access to
@@ -165,7 +165,7 @@ class TenantController extends Controller
     {
         if (!FacadesRequest::wantsJson())
         {
-            return view('l-limitless-bs4.layout_2-ltr-default.appVue');
+            return view('ui.limitless::layout_2-ltr-default.appVue');
         }
 
         $Tenant = new Tenant;
@@ -329,7 +329,7 @@ class TenantController extends Controller
     {
         if (!FacadesRequest::wantsJson())
         {
-            return view('l-limitless-bs4.layout_2-ltr-default.appVue');
+            return view('ui.limitless::layout_2-ltr-default.appVue');
         }
 
         $Tenant = Tenant::findOrFail($id);
