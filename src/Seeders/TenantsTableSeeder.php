@@ -1763,15 +1763,15 @@ class TenantsTableSeeder extends Seeder
             //\Illuminate\Support\Facades\Log::info($a.'_'.$n);
 
             $images = [];
-            if (Storage::disk('public_storage')->exists('items/2021-07/'.$a.'_01.webp'))
+            if (Storage::disk('public')->exists('items/2021-07/'.$a.'_01.webp'))
             {
                 $ext = 'webp';
             }
-            elseif (Storage::disk('public_storage')->exists('items/2021-07/'.$a.'_01.jpg'))
+            elseif (Storage::disk('public')->exists('items/2021-07/'.$a.'_01.jpg'))
             {
                 $ext = 'jpg';
             }
-            elseif (Storage::disk('public_storage')->exists('items/2021-07/'.$a.'_01.png'))
+            elseif (Storage::disk('public')->exists('items/2021-07/'.$a.'_01.png'))
             {
                 $ext = 'png';
             }
@@ -1795,7 +1795,7 @@ class TenantsTableSeeder extends Seeder
                 'status' => 'active',
                 'image_name' => $imageName.'.'.$ext,
                 'image_path' => 'storage/items/2021-07/'.$imageName.'.'.$ext,
-                'image_url' => 'http://qbuks.local/storage/items/2021-07/'.$imageName.'.'.$ext,
+                'image_url' => env('APP_URL').'/storage/items/2021-07/'.$imageName.'.'.$ext,
             ]);
 
             unset($imageName);
@@ -1808,15 +1808,15 @@ class TenantsTableSeeder extends Seeder
                 //\Illuminate\Support\Facades\Log::info('#image #############################');
                 //\Illuminate\Support\Facades\Log::info('#image name: '.$imageName.'--');
 
-                if (Storage::disk('public_storage')->exists('items/2021-07/'.$imageName.'.webp'))
+                if (Storage::disk('public')->exists('items/2021-07/'.$imageName.'.webp'))
                 {
                     $ext = 'webp';
                 }
-                elseif (Storage::disk('public_storage')->exists('items/2021-07/'.$imageName.'.jpg'))
+                elseif (Storage::disk('public')->exists('items/2021-07/'.$imageName.'.jpg'))
                 {
                     $ext = 'jpg';
                 }
-                elseif (Storage::disk('public_storage')->exists('items/2021-07/'.$imageName.'.png'))
+                elseif (Storage::disk('public')->exists('items/2021-07/'.$imageName.'.png'))
                 {
                     $ext = 'png';
                 }
@@ -1832,7 +1832,7 @@ class TenantsTableSeeder extends Seeder
                     'position' => ($x-1),
                     'image_name' => $imageName.'.'.$ext,
                     'image_path' => 'storage/items/2021-07/'.$imageName.'.'.$ext,
-                    'image_url' => 'http://qbuks.local/storage/items/2021-07/'.$imageName.'.'.$ext,
+                    'image_url' => env('APP_URL').'/storage/items/2021-07/'.$imageName.'.'.$ext,
                 ];
             }
 
