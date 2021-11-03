@@ -9,7 +9,7 @@ use Rutatiina\Admin\Models\Service;
 use Rutatiina\Admin\Models\ServiceUser;
 use Rutatiina\Contact\Models\Contact;
 use Rutatiina\FinancialAccounting\Models\Account;
-use Rutatiina\FinancialAccounting\Models\FinancialAccountType;
+use Rutatiina\FinancialAccounting\Models\FinancialAccountCategory;
 use Rutatiina\Item\Models\Item;
 use Rutatiina\Tax\Models\Tax;
 use Rutatiina\Tenant\Models\Tenant;
@@ -45,7 +45,7 @@ class TenantsTableSeeder extends Seeder
         Item::truncate();
         ServiceUser::truncate();
         Contact::truncate();
-        FinancialAccountType::truncate();
+        FinancialAccountCategory::truncate();
         Account::truncate();
         Tax::truncate();
 

@@ -4,7 +4,7 @@ namespace Rutatiina\Tenant\Traits;
 
 use Illuminate\Support\Facades\Auth;
 use Rutatiina\FinancialAccounting\Models\Account;
-use Rutatiina\FinancialAccounting\Models\FinancialAccountType;
+use Rutatiina\FinancialAccounting\Models\FinancialAccountCategory;
 use Rutatiina\POS\Models\POSOrderSetting;
 use Rutatiina\Tax\Models\Tax;
 use Rutatiina\Tenant\Models\Tenant;
@@ -353,7 +353,8 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Cash and Cash Equivalents',
-                                    'code' => 110100
+                                    'code' => 110100,
+                                    'payment' => 1
                                 ],
                                 [
                                     'name' => 'Financial Assets (Investments)',
@@ -1063,7 +1064,7 @@ trait TenantTrait
             {
                 foreach ($title['categories'] as $category)
                 {
-                    FinancialAccountType::create([
+                    FinancialAccountCategory::create([
                         'code' => $category['code'],
                         'tenant_id' => $tenant_id,
                         'type' => $type,
@@ -1079,7 +1080,8 @@ trait TenantTrait
                             'tenant_id' => $tenant_id,
                             'name' => $account['name'],
                             'type' => $type,
-                            'financial_account_type_code' => $category['code'],
+                            'financial_account_category_code' => $category['code'],
+                            'payment' => @$account['payment'],
                             //'balance' => NULL, //debit / credit / both
                             //'description' => NULL,
                             //'payment' => 0,
