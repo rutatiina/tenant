@@ -83,7 +83,7 @@ use Rutatiina\SalesOrder\Models\SalesOrder;
 use Rutatiina\SalesOrder\Models\SalesOrderItem;
 use Rutatiina\SalesOrder\Models\SalesOrderItemTax;
 use Rutatiina\Tenant\Models\Tenant;
-use Rutatiina\Admin\Models\ServiceUser;
+use Rutatiina\Qbuks\Models\ServiceUser;
 use Rutatiina\Tenant\Traits\TenantTrait;
 
 class TenantController extends Controller
