@@ -173,6 +173,7 @@ class TenantController extends Controller
         $attributes['_method'] = 'POST';
 
         //set the default attribute values
+        $attributes['service_id'] = 1;
         $attributes['country'] = 'UG';
         $attributes['base_currency'] = 'UGX';
         $attributes['language'] = 'en';
@@ -335,6 +336,7 @@ class TenantController extends Controller
         $Tenant = Tenant::findOrFail($id);
         $attributes = $Tenant->toArray();
         $attributes['_method'] = 'PATCH';
+        $attributes['service_id'] = 1;
 
         $data = [
             'pageTitle' => 'Edit Organisation',
