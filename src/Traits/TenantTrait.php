@@ -223,15 +223,15 @@ trait TenantTrait
             ]);
         }
 
-        /*
+        //*
         if (class_exists('Rutatiina\GoodsDelivered\Models\GoodsDeliveredSetting'))
         {
             GoodsDeliveredSetting::create([
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Goods Delivered Note',
                 'document_type' => 'inventory',
-                'debit_financial_account_code' => 54, //Cost of Sales
-                'credit_financial_account_code' => 6,
+                'debit_financial_account_code' => 720000, //Cost of Sales
+                'credit_financial_account_code' => 130500, //Other Inventory [value was 6 before changing to codes]
             ]);
         }
 
@@ -241,8 +241,8 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Goods Issued Note',
                 'document_type' => 'inventory',
-                'debit_financial_account_code' => 66,
-                'credit_financial_account_code' => 6,
+                'debit_financial_account_code' => 66, //sales person inventory
+                'credit_financial_account_code' => 130500, //Other Inventory
             ]);
         }
 
@@ -252,7 +252,7 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Goods Received Note',
                 'document_type' => 'inventory',
-                'debit_financial_account_code' => 6,
+                'debit_financial_account_code' => 130500, //Other Inventory
                 'credit_financial_account_code' => 0,
             ]);
         }
@@ -263,11 +263,11 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Goods Returned Note',
                 'document_type' => 'inventory',
-                'debit_financial_account_code' => 6,
-                'credit_financial_account_code' => 66,
+                'debit_financial_account_code' => 130500, //Other Inventory
+                'credit_financial_account_code' => 66, //sales person inventory
             ]);
         }
-        */
+        //*/
 
         if (class_exists('Rutatiina\Invoice\Models\InvoiceSetting'))
         {
