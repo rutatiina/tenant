@@ -223,7 +223,8 @@ trait TenantTrait
             ]);
         }
 
-        //*
+        //the bellow code is scheduled for delete since the details are in the respective packages services
+        /*
         if (class_exists('Rutatiina\GoodsDelivered\Models\GoodsDeliveredSetting'))
         {
             GoodsDeliveredSetting::create([
