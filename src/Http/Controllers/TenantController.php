@@ -47,16 +47,12 @@ use Rutatiina\FinancialAccounting\Models\AccountBalance;
 use Rutatiina\FinancialAccounting\Models\ContactBalance;
 use Rutatiina\GoodsDelivered\Models\GoodsDelivered;
 use Rutatiina\GoodsDelivered\Models\GoodsDeliveredItem;
-use Rutatiina\GoodsDelivered\Models\GoodsDeliveredLedger;
 use Rutatiina\GoodsIssued\Models\GoodsIssued;
 use Rutatiina\GoodsIssued\Models\GoodsIssuedItem;
-use Rutatiina\GoodsIssued\Models\GoodsIssuedLedger;
 use Rutatiina\GoodsReceived\Models\GoodsReceived;
 use Rutatiina\GoodsReceived\Models\GoodsReceivedItem;
-use Rutatiina\GoodsReceived\Models\GoodsReceivedLedger;
 use Rutatiina\GoodsReturned\Models\GoodsReturned;
 use Rutatiina\GoodsReturned\Models\GoodsReturnedItem;
-use Rutatiina\GoodsReturned\Models\GoodsReturnedLedger;
 use Rutatiina\Invoice\Models\Invoice;
 use Rutatiina\Invoice\Models\InvoiceItem;
 use Rutatiina\Invoice\Models\InvoiceItemTax;
@@ -93,6 +89,11 @@ class TenantController extends Controller
     public function __construct()
     {
         $this->middleware('tenant', ['only' => ['tenant', 'index', 'edit', 'deleteTxns', 'test']]);
+
+        $this->middleware('permission:tenants.view');
+        $this->middleware('permission:tenants.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:tenants.update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:tenants.delete', ['only' => ['destroy', 'deleteTxns']]);
     }
 
     public function tenant()
@@ -514,19 +515,15 @@ class TenantController extends Controller
 
         GoodsDelivered::query()->forceDelete();
         GoodsDeliveredItem::query()->forceDelete();
-        GoodsDeliveredLedger::query()->forceDelete();
 
         GoodsIssued::query()->forceDelete();
         GoodsIssuedItem::query()->forceDelete();
-        GoodsIssuedLedger::query()->forceDelete();
 
         GoodsReceived::query()->forceDelete();
         GoodsReceivedItem::query()->forceDelete();
-        GoodsReceivedLedger::query()->forceDelete();
 
         GoodsReturned::query()->forceDelete();
         GoodsReturnedItem::query()->forceDelete();
-        GoodsReturnedLedger::query()->forceDelete();
 
         Invoice::query()->forceDelete();
         InvoiceItem::query()->forceDelete();
