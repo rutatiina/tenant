@@ -90,7 +90,7 @@ class TenantController extends Controller
     {
         $this->middleware('tenant', ['only' => ['tenant', 'index', 'edit', 'deleteTxns', 'test']]);
 
-        $this->middleware('permission:tenants.view');
+        $this->middleware('permission:tenants.view')->except('tenant');
         $this->middleware('permission:tenants.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:tenants.update', ['only' => ['edit', 'update']]);
         $this->middleware('permission:tenants.delete', ['only' => ['destroy', 'deleteTxns']]);
