@@ -2,85 +2,86 @@
 
 namespace Rutatiina\Tenant\Http\Controllers;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Request as FacadesRequest;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Rutatiina\Banking\Models\Transaction;
 use Rutatiina\Bill\Models\Bill;
+use Rutatiina\User\Models\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Rutatiina\Bill\Models\BillItem;
-use Rutatiina\Bill\Models\BillItemTax;
+use Rutatiina\Tenant\Models\Tenant;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Rutatiina\Bill\Models\BillLedger;
-use Rutatiina\Bill\Models\RecurringBill;
-use Rutatiina\Bill\Models\RecurringBillItem;
-use Rutatiina\Bill\Models\RecurringBillItemTax;
-use Rutatiina\CashSale\Models\CashSale;
-use Rutatiina\CashSale\Models\CashSaleItem;
-use Rutatiina\CashSale\Models\CashSaleItemTax;
-use Rutatiina\CashSale\Models\CashSaleLedger;
-use Rutatiina\CreditNote\Models\CreditNote;
-use Rutatiina\CreditNote\Models\CreditNoteItem;
-use Rutatiina\CreditNote\Models\CreditNoteItemTax;
-use Rutatiina\CreditNote\Models\CreditNoteLedger;
-use Rutatiina\DebitNote\Models\DebitNote;
-use Rutatiina\DebitNote\Models\DebitNoteItem;
-use Rutatiina\DebitNote\Models\DebitNoteItemTax;
-use Rutatiina\DebitNote\Models\DebitNoteLedger;
-use Rutatiina\Estimate\Models\Estimate;
-use Rutatiina\Estimate\Models\EstimateItem;
-use Rutatiina\Estimate\Models\EstimateItemTax;
 use Rutatiina\Expense\Models\Expense;
+use Rutatiina\Invoice\Models\Invoice;
+use Rutatiina\Bill\Models\BillItemTax;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
+use Rutatiina\CashSale\Models\CashSale;
+use Rutatiina\Estimate\Models\Estimate;
+use Rutatiina\Qbuks\Models\ServiceUser;
+use Rutatiina\Bill\Models\RecurringBill;
+use Rutatiina\Tenant\Traits\TenantTrait;
+use Illuminate\Support\Facades\Validator;
+use Rutatiina\Banking\Models\Transaction;
+use Rutatiina\DebitNote\Models\DebitNote;
 use Rutatiina\Expense\Models\ExpenseItem;
-use Rutatiina\Expense\Models\ExpenseItemTax;
+use Rutatiina\Invoice\Models\InvoiceItem;
+use Rutatiina\CashSale\Models\CashSaleItem;
+use Rutatiina\CreditNote\Models\CreditNote;
+use Rutatiina\Estimate\Models\EstimateItem;
 use Rutatiina\Expense\Models\ExpenseLedger;
-use Rutatiina\Expense\Models\RecurringExpense;
-use Rutatiina\Expense\Models\RecurringExpenseItem;
-use Rutatiina\Expense\Models\RecurringExpenseItemTax;
-use Rutatiina\FinancialAccounting\Models\Account;
-use Rutatiina\FinancialAccounting\Models\AccountBalance;
-use Rutatiina\FinancialAccounting\Models\ContactBalance;
-use Rutatiina\GoodsDelivered\Models\GoodsDelivered;
-use Rutatiina\GoodsDelivered\Models\GoodsDeliveredItem;
+use Rutatiina\Invoice\Models\InvoiceLedger;
+use Rutatiina\SalesOrder\Models\SalesOrder;
+use Rutatiina\Bill\Models\RecurringBillItem;
+use Rutatiina\Expense\Models\ExpenseItemTax;
+use Rutatiina\Invoice\Models\InvoiceItemTax;
+use Rutatiina\CashSale\Models\CashSaleLedger;
+use Rutatiina\DebitNote\Models\DebitNoteItem;
 use Rutatiina\GoodsIssued\Models\GoodsIssued;
+use Rutatiina\PaymentMade\Models\PaymentMade;
+use Rutatiina\CashSale\Models\CashSaleItemTax;
+use Rutatiina\Estimate\Models\EstimateItemTax;
+use Rutatiina\Expense\Models\RecurringExpense;
+use Rutatiina\Invoice\Models\RecurringInvoice;
+use Rutatiina\Bill\Models\RecurringBillItemTax;
+use Rutatiina\CreditNote\Models\CreditNoteItem;
+use Rutatiina\DebitNote\Models\DebitNoteLedger;
+use Rutatiina\SalesOrder\Models\SalesOrderItem;
+use Rutatiina\DebitNote\Models\DebitNoteItemTax;
+use Rutatiina\CreditNote\Models\CreditNoteLedger;
+use Rutatiina\FinancialAccounting\Models\Account;
 use Rutatiina\GoodsIssued\Models\GoodsIssuedItem;
 use Rutatiina\GoodsReceived\Models\GoodsReceived;
-use Rutatiina\GoodsReceived\Models\GoodsReceivedItem;
 use Rutatiina\GoodsReturned\Models\GoodsReturned;
-use Rutatiina\GoodsReturned\Models\GoodsReturnedItem;
-use Rutatiina\Invoice\Models\Invoice;
-use Rutatiina\Invoice\Models\InvoiceItem;
-use Rutatiina\Invoice\Models\InvoiceItemTax;
-use Rutatiina\Invoice\Models\InvoiceLedger;
-use Rutatiina\Invoice\Models\RecurringInvoice;
-use Rutatiina\Invoice\Models\RecurringInvoiceItem;
-use Rutatiina\Invoice\Models\RecurringInvoiceItemTax;
-use Rutatiina\PaymentMade\Models\PaymentMade;
 use Rutatiina\PaymentMade\Models\PaymentMadeItem;
-use Rutatiina\PaymentMade\Models\PaymentMadeItemTax;
-use Rutatiina\PaymentMade\Models\PaymentMadeLedger;
 use Rutatiina\PurchaseOrder\Models\PurchaseOrder;
-use Rutatiina\PurchaseOrder\Models\PurchaseOrderItem;
-use Rutatiina\PurchaseOrder\Models\PurchaseOrderItemTax;
-use Rutatiina\PaymentReceived\Models\PaymentReceived;
-use Rutatiina\PaymentReceived\Models\PaymentReceivedItem;
-use Rutatiina\PaymentReceived\Models\PaymentReceivedItemTax;
-use Rutatiina\PaymentReceived\Models\PaymentReceivedLedger;
-use Rutatiina\RetainerInvoice\Models\RetainerInvoice;
-use Rutatiina\RetainerInvoice\Models\RetainerInvoiceItem;
-use Rutatiina\RetainerInvoice\Models\RetainerInvoiceItemTax;
-use Rutatiina\RetainerInvoice\Models\RetainerInvoiceLedger;
-use Rutatiina\SalesOrder\Models\SalesOrder;
-use Rutatiina\SalesOrder\Models\SalesOrderItem;
+use Rutatiina\CreditNote\Models\CreditNoteItemTax;
+use Rutatiina\Expense\Models\RecurringExpenseItem;
+use Rutatiina\Invoice\Models\RecurringInvoiceItem;
 use Rutatiina\SalesOrder\Models\SalesOrderItemTax;
-use Rutatiina\Tenant\Models\Tenant;
-use Rutatiina\Qbuks\Models\ServiceUser;
-use Rutatiina\Tenant\Traits\TenantTrait;
+use Rutatiina\GoodsDelivered\Models\GoodsDelivered;
+use Rutatiina\PaymentMade\Models\PaymentMadeLedger;
+use Rutatiina\PaymentMade\Models\PaymentMadeItemTax;
+use Rutatiina\Expense\Models\RecurringExpenseItemTax;
+use Rutatiina\GoodsReceived\Models\GoodsReceivedItem;
+use Rutatiina\GoodsReturned\Models\GoodsReturnedItem;
+use Rutatiina\Invoice\Models\RecurringInvoiceItemTax;
+use Rutatiina\PaymentReceived\Models\PaymentReceived;
+use Rutatiina\PurchaseOrder\Models\PurchaseOrderItem;
+use Rutatiina\RetainerInvoice\Models\RetainerInvoice;
+use Rutatiina\GoodsDelivered\Models\GoodsDeliveredItem;
+use Rutatiina\FinancialAccounting\Models\AccountBalance;
+use Rutatiina\FinancialAccounting\Models\ContactBalance;
+use Rutatiina\PurchaseOrder\Models\PurchaseOrderItemTax;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use Rutatiina\PaymentReceived\Models\PaymentReceivedItem;
+use Rutatiina\RetainerInvoice\Models\RetainerInvoiceItem;
+use Rutatiina\PaymentReceived\Models\PaymentReceivedLedger;
+use Rutatiina\RetainerInvoice\Models\RetainerInvoiceLedger;
+use Rutatiina\PaymentReceived\Models\PaymentReceivedItemTax;
+use Rutatiina\RetainerInvoice\Models\RetainerInvoiceItemTax;
 
 class TenantController extends Controller
 {
@@ -194,6 +195,82 @@ class TenantController extends Controller
         }
     }
 
+
+
+    private function tenantRoles($tenantModel)
+    {
+
+      $role = Role::firstOrCreate([
+        'name' => 'Organization administrator',
+        'tenant_id' => $tenantModel->id
+      ]);
+      $role->givePermissionTo([
+          'users.*',
+          'roles.*',
+          'contacts.*',
+          'items.*',
+          'items.category.*',
+          'banking.*',
+          'banking.bank.*',
+          'banking.accounts.*',
+          'dashboard.*',
+          'estimates.*',
+          'retainer-invoices.*',
+          'sales-orders.*',
+          'invoices.*',
+          'payments-made.*',
+          'recurring-invoices.*',
+          'credit-notes.*',
+          'expenses.*',
+          'recurring-expenses.*',
+          'purchase-orders.*',
+          'bills.*',
+          'payments-received.*',
+          'recurring-bills.*',
+          'debit-notes.*',
+          'goods-received.*',
+          'goods-delivered.*',
+          'goods-issued.*',
+          'goods-returned.*',
+          'journals.*',
+          'reports.*',
+          'taxes.*',
+          'pos.*',
+          'pos.order.*',
+          'chat-of-accounts.*',
+      ]);
+
+      Auth::user()->assignRole($role->id);
+
+      $role = Role::firstOrCreate([
+        'name' => 'Sales agent',
+        'tenant_id' => $tenantModel->id
+      ]);
+      $role->givePermissionTo([
+          'contacts.*',
+          'items.*',
+          'items.category.*',
+          'dashboard.*',
+
+          'estimates.*',
+          'retainer-invoices.*',
+          'sales-orders.*',
+          'invoices.*',
+          'payments-received.*',
+          'recurring-invoices.*',
+          'credit-notes.*',
+          
+          'goods-received.*',
+          'goods-delivered.*',
+          'goods-issued.*',
+          'goods-returned.*',
+          
+          'pos.*',
+          'pos.order.*',
+      ]);
+
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -268,7 +345,7 @@ class TenantController extends Controller
             $ServiceUser->save();
 
             //make the user who creates this tenant the super-admin of this tenant
-            Auth::user()->assignRole('super-admin');
+            $this->tenantRoles($tenant);
 
             $create_database = env('TENANT_CREATE_DATABASE', 'false');
 
@@ -281,7 +358,7 @@ class TenantController extends Controller
             }
             else
             {
-                $tenant->database = 'rg_accounting'; //set the default db <<>> this value MUST be set
+                $tenant->database = config('database.connections.tenant.database'); //set the default tenant db
                 $tenant->save();
             }
 
