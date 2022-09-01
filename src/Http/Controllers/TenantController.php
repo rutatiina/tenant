@@ -289,7 +289,7 @@ class TenantController extends Controller
         $logo = null;
         if ($request->file('logo'))
         {
-            $logo = Storage::disk('public_storage')->putFile('/', $request->file('logo'));
+            $logo = Storage::disk('public')->putFile('/', $request->file('logo'));
         }
 
         DB::beginTransaction();
@@ -471,7 +471,7 @@ class TenantController extends Controller
 
         if ($request->file('logo'))
         {
-            $tenant->logo = Storage::disk('public_storage')->putFile('/', $request->file('logo'));
+            $tenant->logo = Storage::disk('public')->putFile('/', $request->file('logo'));
         }
 
         if ($tenant->save())
