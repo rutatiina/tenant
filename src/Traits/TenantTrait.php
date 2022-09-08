@@ -1080,7 +1080,7 @@ trait TenantTrait
                             'code' => $account['code'],
                             'tenant_id' => $tenant_id,
                             'name' => $account['name'],
-                            'type' => $type,
+                            'type' => ($account['code'] == 720100) ? 'cost-of-sales' : $type,
                             'financial_account_category_code' => $category['code'],
                             'payment' => @$account['payment'],
                             //'balance' => NULL, //debit / credit / both
