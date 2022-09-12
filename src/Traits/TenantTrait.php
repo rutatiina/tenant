@@ -369,6 +369,10 @@ trait TenantTrait
                                     'name' => 'Additional Financial Assets and Investments',
                                     'code' => 110400
                                 ],
+                                [
+                                    'name' => 'Petty cash',
+                                    'code' => 110500
+                                ],
                             ]
                         ],
                         [
