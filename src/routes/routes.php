@@ -10,6 +10,8 @@ Route::group(['middleware' => ['web', 'auth']], function() {
 
 	Route::get('settings/organisations/{id}/switch', 'Rutatiina\Tenant\Http\Controllers\TenantController@switch')->name('organisations.switch');
 	Route::delete('settings/organisations/{id}/delete-transactions', 'Rutatiina\Tenant\Http\Controllers\TenantController@deleteTxns')->name('organisations.delete-transactions');
+
+    Route::resource('settings/organisations/payment-details', 'Rutatiina\Tenant\Http\Controllers\TenantPaymentDetailsController');
     Route::resource('settings/organisations', 'Rutatiina\Tenant\Http\Controllers\TenantController');
 
 });
