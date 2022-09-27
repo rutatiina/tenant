@@ -1080,17 +1080,23 @@ trait TenantTrait
 
                     foreach ($category['accounts'] as $account)
                     {
-                        Account::create([
+                        $_acc_ = Account::create([
                             'code' => $account['code'],
                             'tenant_id' => $tenant_id,
                             'name' => $account['name'],
-                            'type' => ($account['code'] == 720100) ? 'cost-of-sales' : $type,
+                            'type' => $type,
                             'financial_account_category_code' => $category['code'],
                             'payment' => @$account['payment'],
                             //'balance' => NULL, //debit / credit / both
                             //'description' => NULL,
                             //'payment' => 0,
                         ]);
+
+                        if (($account['code'] == 720100))
+                        {
+                            $_acc_->sub_type = 'cost-of-goods-sold';
+                            $_acc_->save();
+                        }
                     }
                 }
             }
