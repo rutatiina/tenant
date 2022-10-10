@@ -4,9 +4,12 @@ namespace Rutatiina\Tenant\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Rutatiina\Tenant\Scopes\TenantIdScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TenantPaymentDetail extends Model
 {
+    use SoftDeletes;
+    
     protected $connection = 'system';
 
     /**
