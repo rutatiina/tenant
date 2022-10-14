@@ -416,6 +416,17 @@ class TenantController extends Controller
         $attributes['_method'] = 'PATCH';
         $attributes['service_id'] = 1;
 
+        if (Storage::disk('public')->exists($attributes['logo']))
+        {
+            $attributes['logo'] = Storage::url($attributes['logo']);
+        }
+        else
+        {
+            $attributes['logo'] = '/web/assets/template/l/global_assets/images/placeholders/placeholder.jpg';
+        }
+
+        $attributes['logo_presently'] = $attributes['logo'];
+
         $data = [
             'pageTitle' => 'Edit Organisation',
             'urlPost' => '/settings/organisations/' . $id, #required
@@ -430,6 +441,8 @@ class TenantController extends Controller
 
     public function update($id, Request $request)
     {
+        // return $request;
+
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             //'email' => ['required', 'email', 'max:255'],
@@ -441,6 +454,8 @@ class TenantController extends Controller
         {
             return ['status' => false, 'messages' => $validator->errors()->all()];
         }
+
+
 
         $tenant = Tenant::find($request->id);
 
@@ -469,9 +484,9 @@ class TenantController extends Controller
         $tenant->tax_id_name = $request->tax_id_name;
         $tenant->tax_id_value = $request->tax_id_value;
 
-        if ($request->file('logo'))
+        if ($request->file('logo_file'))
         {
-            $tenant->logo = Storage::disk('public')->putFile('/', $request->file('logo'));
+            $tenant->logo = Storage::disk('public')->putFile('/tenant_logos', $request->file('logo_file'));
         }
 
         if ($tenant->save())
