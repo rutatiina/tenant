@@ -232,7 +232,7 @@ trait TenantTrait
                 'document_name' => 'Goods Delivered Note',
                 'document_type' => 'inventory',
                 'debit_financial_account_code' => 720000, //Cost of Sales
-                'credit_financial_account_code' => 130500, //Other Inventory [value was 6 before changing to codes]
+                'credit_financial_account_code' => 130500, //Inventory [value was 6 before changing to codes]
             ]);
         }
 
@@ -243,7 +243,7 @@ trait TenantTrait
                 'document_name' => 'Goods Issued Note',
                 'document_type' => 'inventory',
                 'debit_financial_account_code' => 66, //sales person inventory
-                'credit_financial_account_code' => 130500, //Other Inventory
+                'credit_financial_account_code' => 130500, //Inventory
             ]);
         }
 
@@ -253,7 +253,7 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Goods Received Note',
                 'document_type' => 'inventory',
-                'debit_financial_account_code' => 130500, //Other Inventory
+                'debit_financial_account_code' => 130500, //Inventory
                 'credit_financial_account_code' => 0,
             ]);
         }
@@ -264,7 +264,7 @@ trait TenantTrait
                 'tenant_id' => $tenant_id,
                 'document_name' => 'Goods Returned Note',
                 'document_type' => 'inventory',
-                'debit_financial_account_code' => 130500, //Other Inventory
+                'debit_financial_account_code' => 130500, //Inventory
                 'credit_financial_account_code' => 66, //sales person inventory
             ]);
         }
@@ -414,7 +414,7 @@ trait TenantTrait
                                     'code' => 130400
                                 ],
                                 [
-                                    'name' => 'Other Inventory',
+                                    'name' => 'Inventory',
                                     'code' => 130500
                                 ]
                             ],
