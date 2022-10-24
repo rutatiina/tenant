@@ -709,10 +709,18 @@ trait TenantTrait
                                     'name' => 'Late Fee Revenue',
                                     'code' => 410400
                                 ],
+
+                                //discount allowed and discount received accounts
                                 [
-                                    'name' => 'Discount',
-                                    'code' => 410500
+                                    'name' => 'Discount allowed', //When the seller allows a discount, this is recorded as a reduction of revenues, and is typically a debit to a contra revenue account
+                                    'code' => 410510,
+                                    'sub_type' => 'contra_revenue'
                                 ],
+                                [
+                                    'name' => 'Discount received', //A discount received is a revenue for any business concern.
+                                    'code' => 410520
+                                ],
+
                                 [
                                     'name' => 'Shipping Charge',
                                     'code' => 410600
@@ -966,7 +974,8 @@ trait TenantTrait
                             'accounts' => [
                                 [
                                     'name' => 'Cost Of Sales',
-                                    'code' => 720100
+                                    'code' => 720100,
+                                    'sub_type' => 'cost-of-sales'
                                 ],
                                 [
                                     'name' => 'Selling, General And Administrative',
@@ -978,7 +987,8 @@ trait TenantTrait
                                 ],
                                 [
                                     'name' => 'Purchase Returns', //contra-expense account; therefore, it can never have a debit balance. The balance will either be zero or credit.
-                                    'code' => 720400
+                                    'code' => 720400,
+                                    'sub_type' => 'contra-expense'
                                 ],
                             ]
                         ]
@@ -1069,34 +1079,39 @@ trait TenantTrait
             {
                 foreach ($title['categories'] as $category)
                 {
-                    FinancialAccountCategory::create([
-                        'code' => $category['code'],
-                        'tenant_id' => $tenant_id,
-                        'type' => $type,
-                        'title' => $title['title'],
-                        'balance' => null,
-                        'category_name' => $category['name']
-                    ]);
+                    FinancialAccountCategory::withoutGlobalScopes()
+                        ->updateOrCreate(
+                            [
+                                'code' => $category['code'],
+                                'tenant_id' => $tenant_id,
+                            ],
+                            [
+                                'type' => $type,
+                                'title' => $title['title'],
+                                'balance' => null,
+                                'category_name' => $category['name']
+                            ]
+                        );
 
                     foreach ($category['accounts'] as $account)
                     {
-                        $_acc_ = Account::create([
-                            'code' => $account['code'],
-                            'tenant_id' => $tenant_id,
-                            'name' => $account['name'],
-                            'type' => $type,
-                            'financial_account_category_code' => $category['code'],
-                            'payment' => @$account['payment'],
-                            //'balance' => NULL, //debit / credit / both
-                            //'description' => NULL,
-                            //'payment' => 0,
-                        ]);
-
-                        if (($account['code'] == 720100))
-                        {
-                            $_acc_->sub_type = 'cost-of-goods-sold';
-                            $_acc_->save();
-                        }
+                        Account::withoutGlobalScopes()
+                            ->updateOrCreate(
+                                [
+                                    'code' => $account['code'],
+                                    'tenant_id' => $tenant_id
+                                ],
+                                [
+                                    'name' => $account['name'],
+                                    'type' => $type,
+                                    'sub_type' => (isset($account['sub_type'])) ? $account['sub_type'] : $type,
+                                    'financial_account_category_code' => $category['code'],
+                                    'payment' => @$account['payment'],
+                                    //'balance' => NULL, //debit / credit / both
+                                    //'description' => NULL,
+                                    //'payment' => 0,
+                                ]
+                            );
                     }
                 }
             }
