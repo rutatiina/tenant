@@ -328,8 +328,8 @@ class TenantController extends Controller
             $tenant->tax_id_value = $request->tax_id_value;
             $tenant->status = $request->status;
             $tenant->sms_credits = $request->sms_credits;
-            //$tenant->inventory_valuation_system = $request->inventory_valuation_system;
-            //$tenant->inventory_valuation_method = $request->inventory_valuation_method;
+            $tenant->inventory_valuation_system = 'perpetual'; //$request->inventory_valuation_system;
+            $tenant->inventory_valuation_method = 'fifo'; //$request->inventory_valuation_method;
             //$tenant->decimal_places       = $request->decimal_places;
             //$tenant->package_accounts     = $request->package_accounts;
             //$tenant->package_human_resource = $request->package_human_resource;
