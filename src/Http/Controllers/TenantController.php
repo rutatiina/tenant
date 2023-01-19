@@ -16,6 +16,7 @@ use Rutatiina\Bill\Models\BillLedger;
 use Rutatiina\Expense\Models\Expense;
 use Rutatiina\Invoice\Models\Invoice;
 use Rutatiina\Bill\Models\BillItemTax;
+use Rutatiina\User\Models\UserDetails;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Rutatiina\CashSale\Models\CashSale;
@@ -658,6 +659,12 @@ class TenantController extends Controller
     public function switch($id)
     {
         $tenant = Tenant::findOrFail($id);
+
+        //update the tenant id parameter of the user details
+        UserDetails::updateOrCreate(
+            ['user_id' => Auth::user()->id],
+            ['tenant_id' => $tenant->id]
+        );
 
         session(['tenant_id' => $tenant->id]);
 
