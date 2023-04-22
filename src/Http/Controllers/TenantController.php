@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Validator;
 use Rutatiina\Banking\Models\Transaction;
 use Rutatiina\DebitNote\Models\DebitNote;
 use Rutatiina\Expense\Models\ExpenseItem;
+use Rutatiina\Inventory\Models\Inventory;
 use Rutatiina\Invoice\Models\InvoiceItem;
 use Rutatiina\CreditNote\Models\CreditNote;
 use Rutatiina\Estimate\Models\EstimateItem;
@@ -73,6 +74,7 @@ use Rutatiina\Invoice\Models\RecurringInvoiceItemTax;
 use Rutatiina\PaymentReceived\Models\PaymentReceived;
 use Rutatiina\PurchaseOrder\Models\PurchaseOrderItem;
 use Rutatiina\RetainerInvoice\Models\RetainerInvoice;
+use Rutatiina\GoodsReceived\Models\GoodsReceivedInput;
 use Rutatiina\GoodsDelivered\Models\GoodsDeliveredItem;
 use Rutatiina\FinancialAccounting\Models\AccountBalance;
 use Rutatiina\FinancialAccounting\Models\ContactBalance;
@@ -616,6 +618,7 @@ class TenantController extends Controller
 
         GoodsReceived::query()->forceDelete();
         GoodsReceivedItem::query()->forceDelete();
+        GoodsReceivedInput::query()->forceDelete();
 
         GoodsReturned::query()->forceDelete();
         GoodsReturnedItem::query()->forceDelete();
@@ -651,6 +654,9 @@ class TenantController extends Controller
         SalesOrder::query()->forceDelete();
         SalesOrderItem::query()->forceDelete();
         SalesOrderItemTax::query()->forceDelete();
+        
+        // Delete all the inventory records
+        Inventory::query()->forceDelete();
 
         return [
             'status' => true,
