@@ -48,6 +48,7 @@ use Rutatiina\PaymentMade\Models\PaymentMade;
 use Rutatiina\Estimate\Models\EstimateItemTax;
 use Rutatiina\Expense\Models\RecurringExpense;
 use Rutatiina\Invoice\Models\RecurringInvoice;
+use Rutatiina\PettyCash\Models\PettyCashEntry;
 use Rutatiina\Bill\Models\RecurringBillItemTax;
 use Rutatiina\CreditNote\Models\CreditNoteItem;
 use Rutatiina\DebitNote\Models\DebitNoteLedger;
@@ -575,13 +576,11 @@ class TenantController extends Controller
         Sales::query()->forceDelete();
         SalesItem::query()->forceDelete();
         SalesItemTax::query()->forceDelete();
-        SalesLedger::query()->forceDelete();
         SalesComment::query()->forceDelete();
 
         Bill::query()->forceDelete();
         BillItem::query()->forceDelete();
         BillItemTax::query()->forceDelete();
-        BillLedger::query()->forceDelete();
 
         RecurringBill::query()->forceDelete();
         RecurringBillItem::query()->forceDelete();
@@ -590,12 +589,10 @@ class TenantController extends Controller
         CreditNote::query()->forceDelete();
         CreditNoteItem::query()->forceDelete();
         CreditNoteItemTax::query()->forceDelete();
-        CreditNoteLedger::query()->forceDelete();
 
         DebitNote::query()->forceDelete();
         DebitNoteItem::query()->forceDelete();
         DebitNoteItemTax::query()->forceDelete();
-        DebitNoteLedger::query()->forceDelete();
 
         Estimate::query()->forceDelete();
         EstimateItem::query()->forceDelete();
@@ -604,7 +601,6 @@ class TenantController extends Controller
         Expense::query()->forceDelete();
         ExpenseItem::query()->forceDelete();
         ExpenseItemTax::query()->forceDelete();
-        ExpenseLedger::query()->forceDelete();
 
         RecurringExpense::query()->forceDelete();
         RecurringExpenseItem::query()->forceDelete();
@@ -626,7 +622,6 @@ class TenantController extends Controller
         Invoice::query()->forceDelete();
         InvoiceItem::query()->forceDelete();
         InvoiceItemTax::query()->forceDelete();
-        InvoiceLedger::query()->forceDelete();
 
         RecurringInvoice::query()->forceDelete();
         RecurringInvoiceItem::query()->forceDelete();
@@ -635,7 +630,6 @@ class TenantController extends Controller
         PaymentMade::query()->forceDelete();
         PaymentMadeItem::query()->forceDelete();
         PaymentMadeItemTax::query()->forceDelete();
-        PaymentMadeLedger::query()->forceDelete();
 
         PurchaseOrder::query()->forceDelete();
         PurchaseOrderItem::query()->forceDelete();
@@ -644,16 +638,16 @@ class TenantController extends Controller
         PaymentReceived::query()->forceDelete();
         PaymentReceivedItem::query()->forceDelete();
         PaymentReceivedItemTax::query()->forceDelete();
-        PaymentReceivedLedger::query()->forceDelete();
 
         RetainerInvoice::query()->forceDelete();
         RetainerInvoiceItem::query()->forceDelete();
         RetainerInvoiceItemTax::query()->forceDelete();
-        RetainerInvoiceLedger::query()->forceDelete();
 
         SalesOrder::query()->forceDelete();
         SalesOrderItem::query()->forceDelete();
         SalesOrderItemTax::query()->forceDelete();
+
+        PettyCashEntry::query()->forceDelete();
         
         // Delete all the inventory records
         Inventory::query()->forceDelete();
