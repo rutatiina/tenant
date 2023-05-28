@@ -133,7 +133,7 @@ trait TenantTrait
                 'document_type' => 'invoice',
                 'number_prefix' => 'RET-',
                 'debit_financial_account_code' => 120100, //Accounts Receviables
-                'credit_financial_account_code' => 410200, //Deferred Revenue
+                'credit_financial_account_code' => 220200, //Deferred Income (Unearned Revenue) -> old wrong entry 410200, //Deferred Revenue
             ]);
         }
 
@@ -700,10 +700,11 @@ trait TenantTrait
                                     'name' => 'Sales Revenue',
                                     'code' => 410100
                                 ],
-                                [
-                                    'name' => 'Deferred Revenue',
-                                    'code' => 410200
-                                ],
+                                //this is to be removed because 'Deferred Revenue' is a liabilitty thus 220200: Deferred Income (Unearned Revenue)
+                                // [
+                                //     'name' => 'Deferred Revenue',
+                                //     'code' => 410200
+                                // ],
                                 [
                                     'name' => 'Interest Revenue',
                                     'code' => 410300
